@@ -9,9 +9,9 @@ import (
 )
 
 var allowedRoutes = map[string]bool{
-	"/":             true,
-	"/verification": true,
-	"/details":      true,
+	"/":        true,
+	"/verify":  true,
+	"/details": true,
 }
 
 func RegisterRoutes(mux *http.ServeMux) {
