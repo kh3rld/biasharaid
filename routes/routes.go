@@ -3,6 +3,9 @@ package routes
 import (
 	"net/http"
 	"strings"
+
+	"github.com/kh3rld/biasharaid/handlers"
+	"github.com/kh3rld/biasharaid/renders"
 )
 
 var allowedRoutes = map[string]bool{
