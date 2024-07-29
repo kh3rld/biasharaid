@@ -1,0 +1,268 @@
+[
+	{
+		"first_name": "john",
+		"second_name": "omondi",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4746hy",
+			"status": "active",
+			"business_value": "100000",
+			"name": "omosh enterprises",
+			"address": "123, 50200, kisumu"
+		},
+		"phone": "254712345678",
+		"national_id": "38448752"
+	},
+	{
+		"first_name": "jane",
+		"second_name": "doe",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4747hz",
+			"status": "active",
+			"business_value": "100000",
+			"name": "doe enterprises",
+			"address": "124, 50201, kisumu"
+		},
+		"phone": "254712345679",
+		"national_id": "38448753"
+	},
+	{
+		"first_name": "alice",
+		"second_name": "smith",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4748ia",
+			"status": "active",
+			"business_value": "100000",
+			"name": "smith enterprises",
+			"address": "125, 50202, kisumu"
+		},
+		"phone": "254712345680",
+		"national_id": "38448754"
+	},
+	{
+		"first_name": "mike",
+		"second_name": "johnson",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4749jb",
+			"status": "active",
+			"business_value": "100000",
+			"name": "johnson traders",
+			"address": "126, 50203, kisumu"
+		},
+		"phone": "254712345681",
+		"national_id": "38448755"
+	},
+	{
+		"first_name": "emily",
+		"second_name": "brown",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4750kc",
+			"status": "active",
+			"business_value": "100000",
+			"name": "brown solutions",
+			"address": "127, 50204, kisumu"
+		},
+		"phone": "254712345682",
+		"national_id": "38448756"
+	},
+	{
+		"first_name": "david",
+		"second_name": "williams",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4751ld",
+			"status": "active",
+			"business_value": "100000",
+			"name": "williams supplies",
+			"address": "128, 50205, kisumu"
+		},
+		"phone": "254712345683",
+		"national_id": "38448757"
+	},
+	{
+		"first_name": "susan",
+		"second_name": "jones",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4752me",
+			"status": "active",
+			"business_value": "100000",
+			"name": "jones ventures",
+			"address": "129, 50206, kisumu"
+		},
+		"phone": "254712345684",
+		"national_id": "38448758"
+	},
+	{
+		"first_name": "robert",
+		"second_name": "miller",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4753nf",
+			"status": "active",
+			"business_value": "100000",
+			"name": "miller enterprises",
+			"address": "130, 50207, kisumu"
+		},
+		"phone": "254712345685",
+		"national_id": "38448759"
+	},
+	{
+		"first_name": "linda",
+		"second_name": "wilson",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4754og",
+			"status": "active",
+			"business_value": "100000",
+			"name": "wilson holdings",
+			"address": "131, 50208, kisumu"
+		},
+		"phone": "254712345686",
+		"national_id": "38448760"
+	},
+	{
+		"first_name": "charles",
+		"second_name": "moore",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4755ph",
+			"status": "active",
+			"business_value": "100000",
+			"name": "moore trading",
+			"address": "132, 50209, kisumu"
+		},
+		"phone": "254712345687",
+		"national_id": "38448761"
+	},
+	{
+		"first_name": "nancy",
+		"second_name": "taylor",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4756qi",
+			"status": "active",
+			"business_value": "100000",
+			"name": "taylor industries",
+			"address": "133, 50210, kisumu"
+		},
+		"phone": "254712345688",
+		"national_id": "38448762"
+	},
+	{
+		"first_name": "daniel",
+		"second_name": "anderson",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4757rj",
+			"status": "active",
+			"business_value": "100000",
+			"name": "anderson supplies",
+			"address": "134, 50211, kisumu"
+		},
+		"phone": "254712345689",
+		"national_id": "38448763"
+	},
+	{
+		"first_name": "karen",
+		"second_name": "thomas",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4758sk",
+			"status": "active",
+			"business_value": "100000",
+			"name": "thomas enterprises",
+			"address": "135, 50212, kisumu"
+		},
+		"phone": "254712345690",
+		"national_id": "38448764"
+	},
+	{
+		"first_name": "paul",
+		"second_name": "jackson",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4759tl",
+			"status": "active",
+			"business_value": "100000",
+			"name": "jackson ventures",
+			"address": "136, 50213, kisumu"
+		},
+		"phone": "254712345691",
+		"national_id": "38448765"
+	},
+	{
+		"first_name": "rachel",
+		"second_name": "white",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4760um",
+			"status": "active",
+			"business_value": "100000",
+			"name": "white solutions",
+			"address": "137, 50214, kisumu"
+		},
+		"phone": "254712345692",
+		"national_id": "38448766"
+	},
+	{
+		"first_name": "steve",
+		"second_name": "harris",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4761vn",
+			"status": "active",
+			"business_value": "100000",
+			"name": "harris trading",
+			"address": "138, 50215, kisumu"
+		},
+		"phone": "254712345693",
+		"national_id": "38448767"
+	},
+	{
+		"first_name": "laura",
+		"second_name": "martin",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4762wo",
+			"status": "active",
+			"business_value": "100000",
+			"name": "martin holdings",
+			"address": "139, 50216, kisumu"
+		},
+		"phone": "254712345694",
+		"national_id": "38448768"
+	},
+	{
+		"first_name": "jack",
+		"second_name": "lee",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4763xp",
+			"status": "active",
+			"business_value": "100000",
+			"name": "lee enterprises",
+			"address": "140, 50217, kisumu"
+		},
+		"phone": "254712345695",
+		"national_id": "38448769"
+	},
+	{
+		"first_name": "jessica",
+		"second_name": "walker",
+		"location": "kisumu",
+		"business": {
+			"business_id": "bn-4764yq",
+			"status": "active",
+			"business_value": "100000",
+			"name": "walker industries",
+			"address": "141, 50218, kisumu"
+		},
+		"phone": "254745645695",
+		"national_id": "39048761"
+	}
+]
