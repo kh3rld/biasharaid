@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/kh3rld/biasharaid/routes"
+	"github.com/kh3rld/biasharaid/internals/routes"
 )
 
 func main() {

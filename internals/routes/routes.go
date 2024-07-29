@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/kh3rld/biasharaid/handlers"
-	"github.com/kh3rld/biasharaid/renders"
+	"github.com/kh3rld/biasharaid/internals/handlers"
+	"github.com/kh3rld/biasharaid/internals/renders"
 )
 
 var allowedRoutes = map[string]bool{

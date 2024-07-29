@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/kh3rld/biasharaid/renders"
+	"github.com/kh3rld/biasharaid/internals/renders"
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
