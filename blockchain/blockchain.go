@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-// Entreprenuer define the structure for the entreprenuer
-type Entreprenuer struct {
+// Entrepreneur defines the structure for the entrepreneur
+type Entrepreneur struct {
 	FirstName  string   `json:"first_name"`
 	SecondName string   `json:"second_name"`
 	Location   string   `json:"location"`
@@ -18,7 +18,7 @@ type Entreprenuer struct {
 	IsGenesis  bool     `json:"is_genesis"`
 }
 
-// Business define the structure for the business
+// Business defines the structure for the business
 type Business struct {
 	BusinessID    string `json:"business_id"`
 	Status        string `json:"status"`
@@ -30,21 +30,22 @@ type Business struct {
 // Block defines the structure for the blockchain node
 type Block struct {
 	Pos       int
-	Data      Entreprenuer
+	Data      Entrepreneur
 	Timestamp string
 	Hash      string
 	PrevHash  string
 }
 
-// createNewBlock creates a new block with the given data and previous hash
-func (b *Block) createBlock(prevBlock *Block, person Entreprenuer) *Block {
+// CreateBlock creates a new block with the given data and previous hash
+func (b *Block) CreateBlock(prevBlock *Block, person Entrepreneur) *Block {
 	block := &Block{
-		prevBlock.Pos + 1,
-		person,
-		time.Now().String(),
-		prevBlock.GenerateHash(),
-		prevBlock.PrevHash,
+		Pos:       prevBlock.Pos + 1,
+		Data:      person,
+		Timestamp: time.Now().String(),
+		PrevHash:  prevBlock.Hash,
 	}
+
+	block.Hash = block.GenerateHash()
 
 	return block
 }
@@ -69,12 +70,25 @@ type Blockchain struct {
 }
 
 // BlockchainInstance declares a global blockchain instance
-var BlockChain *Blockchain
+var BlockchainInstance *Blockchain
+
+// InitializeBlockchain initializes a new blockchain with the genesis block
+func InitializeBlockchain() *Blockchain {
+	genesisBlock := &Block{
+		Pos:       0,
+		Data:      Entrepreneur{IsGenesis: true},
+		Timestamp: time.Now().String(),
+		PrevHash:  "",
+	}
+	genesisBlock.Hash = genesisBlock.GenerateHash()
+
+	return &Blockchain{[]*Block{genesisBlock}}
+}
 
 // AddBlock adds a new block to the blockchain
-func (bc *Blockchain) AddBlock(data Entreprenuer) {
+func (bc *Blockchain) AddBlock(data Entrepreneur) {
 	prevBlock := bc.blocks[len(bc.blocks)-1]
-	newBlock := bc.blocks[0].createBlock(prevBlock, data)
+	newBlock := prevBlock.CreateBlock(prevBlock, data)
 
 	if validBlock(newBlock, prevBlock) {
 		bc.blocks = append(bc.blocks, newBlock)
@@ -95,9 +109,4 @@ func validBlock(newBlock, prevBlock *Block) bool {
 		return false
 	}
 	return true
-}
-
-// GenesisBlock initializes a new blockchain with genesis block
-func (b *Block) GenesisBlock() *Block {
-	return b.createBlock(&Block{}, Entreprenuer{IsGenesis: true})
 }
