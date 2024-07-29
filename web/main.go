@@ -13,7 +13,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	mux := http.NewServeMux()
-	routes.RegisterRoutes(Smux)
+	routes.RegisterRoutes(mux)
 
 	wrappedMux := routes.RouteChecker(mux)
 
