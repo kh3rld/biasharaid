@@ -9,7 +9,12 @@ type Block struct {
 	PrevHash  string
 }
 
-// Define the structure for the entreprenuer
+// Blockchain defines the structure for the blockchain
+type Blockchain struct {
+	blocks []*Block
+}
+
+// Entreprenuer define the structure for the entreprenuer
 type Entreprenuer struct {
 	FirstName  string   `json:"first_name"`
 	SecondName string   `json:"second_name"`
