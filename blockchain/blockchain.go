@@ -57,6 +57,11 @@ func (b *Block) GenerateHash() string {
 	return hex.EncodeToString(hash.Sum(nil))
 }
 
+// ValidateHash validates a given hash
+func (b *Block) ValidateHash(hash string) bool {
+	return b.GenerateHash() == hash
+}
+
 // Blockchain defines the structure for the blockchain
 type Blockchain struct {
 	blocks []*Block
