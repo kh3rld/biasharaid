@@ -1,0 +1,214 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Internal Server Error | BiasharaID</title>
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #00cc99;
+            --bg-color: #f0f8ff;
+            --text-color: #333;
+            --error-color: #ff4444;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        header {
+            background: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+            float: left;
+        }
+
+        header nav {
+            float: right;
+        }
+
+        header nav ul {
+            list-style-type: none;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin-left: 20px;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .main-content {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--error-color);
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .navigation-options {
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: #fff;
+        }
+
+        .blockchain-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .server-error-graphic {
+            width: 200px;
+            height: 200px;
+            margin: 30px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <svg class="blockchain-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 16V8L12 4L4 8V16L12 20L20 16Z" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M4 8L12 12L20 8" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 12V20" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span style="font-size: 24px; font-weight: bold; color: var(--primary-color);">BiasharaID</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/support">Support</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <h1>500 - Internal Server Error</h1>
+            <p>We apologize, but something went wrong on our end. Our team has been notified and is working hard to fix
+                it.</p>
+
+            <svg class="server-error-graphic" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="20" width="80" height="60" fill="#e6e6e6" stroke="#0066cc" stroke-width="2" />
+                <rect x="20" y="30" width="60" height="10" fill="#0066cc" />
+                <rect x="20" y="45" width="60" height="10" fill="#0066cc" />
+                <rect x="20" y="60" width="60" height="10" fill="#0066cc" />
+                <circle cx="85" cy="25" r="3" fill="#ff4444" />
+                <path d="M50,90 L60,100 M50,90 L40,100" stroke="#ff4444" stroke-width="3" />
+                <path d="M30,5 Q50,-5 70,5" stroke="#0066cc" stroke-width="2" fill="none" />
+                <path d="M35,5 L45,15 M65,5 L55,15" stroke="#0066cc" stroke-width="2" />
+            </svg>
+
+            <p>We appreciate your patience. Here's what you can do:</p>
+
+            <ul style="list-style-type: none; padding: 0;">
+                <li>• Refresh the page and try again</li>
+                <li>• Come back in a few minutes</li>
+                <li>• Contact our support team if the problem persists</li>
+            </ul>
+
+            <div class="navigation-options">
+                <a href="/" class="btn">Go to Home</a>
+                <a href="/dashboard" class="btn">Try Dashboard</a>
+                <a href="/support" class="btn">Contact Support</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Need immediate assistance? Contact our support team at <a
+                    href="mailto:support@biasharaid.com">support@biasharaid.com</a></p>
+            <p><a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const refreshButton = document.createElement('button');
+            refreshButton.textContent = 'Refresh Page';
+            refreshButton.className = 'btn';
+            refreshButton.style.backgroundColor = 'var(--secondary-color)';
+            refreshButton.addEventListener('click', () => {
+                location.reload();
+            });
+
+            const navigationOptions = document.querySelector('.navigation-options');
+            navigationOptions.insertBefore(refreshButton, navigationOptions.firstChild);
+
+            // Log the error to the console (in a real scenario, this would be sent to a logging service)
+            console.error('500 Internal Server Error occurred at', new Date().toISOString());
+        });
+    </script>
+</body>
+
+</html>
