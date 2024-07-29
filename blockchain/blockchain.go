@@ -1,5 +1,7 @@
 package blockchain
 
+import "time"
+
 // Block defines the structure for the blockchain node
 type Block struct {
 	Pos       int
@@ -35,3 +37,16 @@ type Business struct {
 
 // BlockchainInstance declares a global blockchain instance
 var BlockChain *Blockchain
+
+// createNewBlock creates a new block with the given data and previous hash
+func (b *Block) createNewBlock(prevBlock *Block, person Entreprenuer) *Block {
+	block := &Block{
+		prevBlock.Pos + 1,
+		person,
+		time.Now().String(),
+		prevBlock.GenerateHash(),
+		prevBlock.PrevHash,
+	}
+
+	return block
+}
