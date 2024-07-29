@@ -1,5 +1,14 @@
 package blockchain
 
+// Block defines the structure for the blockchain node
+type Block struct {
+	Pos       int
+	Data      Entreprenuer
+	Timestamp string
+	Hash      string
+	PrevHash  string
+}
+
 // Define the structure for the entreprenuer
 type Entreprenuer struct {
 	FirstName  string   `json:"first_name"`
