@@ -24,7 +24,7 @@ type Entreprenuer struct {
 	NationalID string   `json:"national_id"`
 }
 
-// Define the structure for the business
+// Business define the structure for the business
 type Business struct {
 	BusinessID    string `json:"business_id"`
 	Status        string `json:"status"`
