@@ -74,3 +74,19 @@ func (bc *Blockchain) AddBlock(data Entreprenuer) {
 		bc.blocks = append(bc.blocks, newBlock)
 	}
 }
+
+// validBlock checks if a new block is valid based on the previous block's hash
+func validBlock(newBlock, prevBlock *Block) bool {
+	if prevBlock.Hash != newBlock.PrevHash {
+		return false
+	}
+
+	if !newBlock.ValidateHash(newBlock.Hash) {
+		return false
+	}
+
+	if prevBlock.Pos+1 != newBlock.Pos {
+		return false
+	}
+	return true
+}
