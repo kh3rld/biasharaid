@@ -36,7 +36,7 @@ type Block struct {
 }
 
 // createNewBlock creates a new block with the given data and previous hash
-func (b *Block) createNewBlock(prevBlock *Block, person Entreprenuer) *Block {
+func (b *Block) createBlock(prevBlock *Block, person Entreprenuer) *Block {
 	block := &Block{
 		prevBlock.Pos + 1,
 		person,
@@ -64,3 +64,13 @@ type Blockchain struct {
 
 // BlockchainInstance declares a global blockchain instance
 var BlockChain *Blockchain
+
+// AddBlock adds a new block to the blockchain
+func (bc *Blockchain) AddBlock(data Entreprenuer) {
+	prevBlock := bc.blocks[len(bc.blocks)-1]
+	newBlock := bc.blocks[0].createBlock(prevBlock, data)
+
+	if validBlock(newBlock, prevBlock) {
+		bc.blocks = append(bc.blocks, newBlock)
+	}
+}
