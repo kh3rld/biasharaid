@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/kh3rld/biasharaid/blockchain"
 	"github.com/kh3rld/biasharaid/internals/renders"
 )
 
@@ -14,6 +15,10 @@ func Verification(w http.ResponseWriter, r *http.Request) {
 }
 
 func Details(w http.ResponseWriter, r *http.Request) {
+}
+func DummyHandler(w http.ResponseWriter, r *http.Request) {
+	resp := blockchain.BlockchainInstance
+	renders.RenderTemplate(w, "dummy.page.html", resp)
 }
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
