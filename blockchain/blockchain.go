@@ -1,6 +1,11 @@
 package blockchain
 
-import "time"
+import (
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"time"
+)
 
 // Block defines the structure for the blockchain node
 type Block struct {
@@ -49,4 +54,13 @@ func (b *Block) createNewBlock(prevBlock *Block, person Entreprenuer) *Block {
 	}
 
 	return block
+}
+
+// GenerateHash generates a SHA-256 hash for the block
+func (b *Block) GenerateHash() string {
+	bytes, _ := json.Marshal(b.Data)
+	data := string(b.Pos) + b.Timestamp + string(bytes) + b.PrevHash
+	hash := sha256.New()
+	hash.Write([]byte(data))
+	return hex.EncodeToString(hash.Sum(nil))
 }
