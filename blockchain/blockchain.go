@@ -7,20 +7,6 @@ import (
 	"time"
 )
 
-// Block defines the structure for the blockchain node
-type Block struct {
-	Pos       int
-	Data      Entreprenuer
-	Timestamp string
-	Hash      string
-	PrevHash  string
-}
-
-// Blockchain defines the structure for the blockchain
-type Blockchain struct {
-	blocks []*Block
-}
-
 // Entreprenuer define the structure for the entreprenuer
 type Entreprenuer struct {
 	FirstName  string   `json:"first_name"`
@@ -40,8 +26,14 @@ type Business struct {
 	Address       string `json:"address"`
 }
 
-// BlockchainInstance declares a global blockchain instance
-var BlockChain *Blockchain
+// Block defines the structure for the blockchain node
+type Block struct {
+	Pos       int
+	Data      Entreprenuer
+	Timestamp string
+	Hash      string
+	PrevHash  string
+}
 
 // createNewBlock creates a new block with the given data and previous hash
 func (b *Block) createNewBlock(prevBlock *Block, person Entreprenuer) *Block {
@@ -64,3 +56,11 @@ func (b *Block) GenerateHash() string {
 	hash.Write([]byte(data))
 	return hex.EncodeToString(hash.Sum(nil))
 }
+
+// Blockchain defines the structure for the blockchain
+type Blockchain struct {
+	blocks []*Block
+}
+
+// BlockchainInstance declares a global blockchain instance
+var BlockChain *Blockchain
