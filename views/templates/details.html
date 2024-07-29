@@ -1,0 +1,280 @@
+<html>
+
+<head>
+    <base href="https://biasharaid.com/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Data - BiasharaID</title>
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #00cc99;
+            --bg-color: #f0f8ff;
+            --text-color: #333;
+            --verified-color: #4CAF50;
+            --pending-color: #FFA500;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        header {
+            background: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+            float: left;
+        }
+
+        header nav {
+            float: right;
+        }
+
+        header nav ul {
+            list-style-type: none;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin-left: 20px;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .business-data,
+        .blockchain-details {
+            background: #fff;
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            color: var(--primary-color);
+        }
+
+        .data-item {
+            margin-bottom: 15px;
+        }
+
+        .data-item label {
+            font-weight: bold;
+            display: inline-block;
+            width: 200px;
+        }
+
+        .verification-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+
+        .verified {
+            background-color: var(--verified-color);
+            color: white;
+        }
+
+        .pending {
+            background-color: var(--pending-color);
+            color: white;
+        }
+
+        .edit-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff;
+        }
+
+        .blockchain-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .blockchain-graphic {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <svg class="blockchain-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 16V8L12 4L4 8V16L12 20L20 16Z" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M4 8L12 12L20 8" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 12V20" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span style="font-size: 24px; font-weight: bold; color: var(--primary-color);">BiasharaID</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/edit-data">Edit Data</a></li>
+                    <li><a href="/support">Support</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="business-data">
+            <h1>Business Data</h1>
+            <div class="data-item">
+                <label>Business ID:</label>
+                <span id="businessId">BID123456789</span>
+            </div>
+            <div class="data-item">
+                <label>Business Name:</label>
+                <span id="businessName">TechInnovate Solutions Ltd</span>
+            </div>
+            <div class="data-item">
+                <label>Business Type:</label>
+                <span id="businessType">Limited Liability Company (LLC)</span>
+            </div>
+            <div class="data-item">
+                <label>Registration Date:</label>
+                <span id="registrationDate">15-05-2022</span>
+            </div>
+            <div class="data-item">
+                <label>Documents:</label>
+                <a href="/documents/registration-certificate.pdf" target="_blank">View Registration Certificate</a>
+            </div>
+            <div class="data-item">
+                <label>Verification Status:</label>
+                <span class="verification-status verified" id="verificationStatus">Verified</span>
+            </div>
+
+            <a href="/edit-data" class="edit-btn">Edit Business Information</a>
+        </section>
+
+        <section class="blockchain-details">
+            <h2>Blockchain Verification Details</h2>
+            <div class="data-item">
+                <label>Transaction ID:</label>
+                <span id="transactionId">0x1234567890abcdef1234567890abcdef12345678</span>
+            </div>
+            <div class="data-item">
+                <label>Timestamp:</label>
+                <span id="timestamp">2023-06-15 14:30:22 UTC</span>
+            </div>
+            <div class="data-item">
+                <label>View on Blockchain:</label>
+                <a href="https://explorer.blockchain.com/tx/0x1234567890abcdef1234567890abcdef12345678"
+                    target="_blank">View Transaction</a>
+            </div>
+
+            <svg class="blockchain-graphic" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="10" width="180" height="180" fill="#e6f7ff" stroke="#0066cc" stroke-width="2" />
+                <text x="100" y="100" text-anchor="middle" fill="#0066cc" font-size="14">Block 1</text>
+                <rect x="210" y="10" width="180" height="180" fill="#e6f7ff" stroke="#0066cc" stroke-width="2" />
+                <text x="300" y="100" text-anchor="middle" fill="#0066cc" font-size="14">Block 2</text>
+                <rect x="410" y="10" width="180" height="180" fill="#e6f7ff" stroke="#0066cc" stroke-width="2" />
+                <text x="500" y="100" text-anchor="middle" fill="#0066cc" font-size="14">Block 3</text>
+                <rect x="610" y="10" width="180" height="180" fill="#e6f7ff" stroke="#00cc99" stroke-width="4" />
+                <text x="700" y="100" text-anchor="middle" fill="#00cc99" font-size="14">Your Data</text>
+                <line x1="190" y1="100" x2="210" y2="100" stroke="#0066cc" stroke-width="2" />
+                <line x1="390" y1="100" x2="410" y2="100" stroke="#0066cc" stroke-width="2" />
+                <line x1="590" y1="100" x2="610" y2="100" stroke="#0066cc" stroke-width="2" />
+            </svg>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Need help? Contact our support team at <a href="mailto:support@biasharaid.com">support@biasharaid.com</a>
+            </p>
+            <p><a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Simulating data retrieval from blockchain
+            const businessData = {
+                businessId: "BID123456789",
+                businessName: "TechInnovate Solutions Ltd",
+                businessType: "Limited Liability Company (LLC)",
+                registrationDate: "15-05-2022",
+                verificationStatus: "Verified",
+                transactionId: "0x1234567890abcdef1234567890abcdef12345678",
+                timestamp: "2023-06-15 14:30:22 UTC"
+            };
+
+            // Populating the data
+            document.getElementById('businessId').textContent = businessData.businessId;
+            document.getElementById('businessName').textContent = businessData.businessName;
+            document.getElementById('businessType').textContent = businessData.businessType;
+            document.getElementById('registrationDate').textContent = businessData.registrationDate;
+            document.getElementById('verificationStatus').textContent = businessData.verificationStatus;
+            document.getElementById('transactionId').textContent = businessData.transactionId;
+            document.getElementById('timestamp').textContent = businessData.timestamp;
+
+            // Update verification status style
+            const statusElement = document.getElementById('verificationStatus');
+            if (businessData.verificationStatus === "Verified") {
+                statusElement.classList.add('verified');
+            } else {
+                statusElement.classList.add('pending');
+            }
+        });
+    </script>
+</body>
+
+</html>
