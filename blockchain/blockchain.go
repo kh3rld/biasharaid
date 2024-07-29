@@ -32,3 +32,6 @@ type Business struct {
 	Name          string `json:"name"`
 	Address       string `json:"address"`
 }
+
+// BlockchainInstance declares a global blockchain instance
+var BlockChain *Blockchain
