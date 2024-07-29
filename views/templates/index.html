@@ -1,0 +1,111 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started with BiasharaID - Secure Blockchain Identity Verification</title>
+    <link rel="stylesheet" href="/views/styles/index.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <svg class="blockchain-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 16V8L12 4L4 8V16L12 20L20 16Z" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M4 8L12 12L20 8" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 12V20" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span style="font-size: 24px; font-weight: bold; color: var(--primary-color);">BiasharaID</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/help">Help</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="intro fade-in">
+            <h1>Welcome to BiasharaID</h1>
+            <p>BiasharaID is your gateway to secure, blockchain-based identity verification. We empower businesses and
+                individuals with a robust digital identity solution that ensures trust, security, and seamless access to
+                financial services.</p>
+            <h2>Key Benefits:</h2>
+            <ul>
+                <li>Secure identity verification using cutting-edge blockchain technology</li>
+                <li>Seamless access to a wide range of financial services</li>
+                <li>Enhanced privacy and control over your personal information</li>
+                <li>Simplified KYC (Know Your Customer) processes</li>
+                <li>Reduced risk of identity theft and fraud</li>
+            </ul>
+        </section>
+
+        <section class="steps fade-in">
+            <h2>Get Started in 3 Simple Steps</h2>
+            <ol>
+                <li>
+                    <h3>Sign Up</h3>
+                    <p>Create your BiasharaID account by providing basic personal and business information. Our
+                        user-friendly interface makes this process quick and easy.</p>
+                </li>
+                <li>
+                    <h3>Identity Verification</h3>
+                    <p>Upload your identification documents and capture your biometric data. Our advanced AI-powered
+                        system ensures a smooth and secure verification process.</p>
+                </li>
+                <li>
+                    <h3>Get Your Digital Identity</h3>
+                    <p>Once verified, you'll receive your unique blockchain-based digital identity token. This token
+                        serves as your secure, portable identity across the BiasharaID ecosystem.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="cta fade-in">
+            <h2>Ready to Secure Your Digital Identity?</h2>
+            <a href="/views/templates/verify.html" class="cta-button">Get Started Now</a>
+            <p>Need more information? Check out our <a href="/faq">FAQ</a> or watch our <a href="/tutorials">video
+                    tutorials</a>.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 BiasharaID. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://twitter.com/biasharaid" target="_blank" rel="noopener noreferrer">Twitter</a>
+                <a href="https://www.linkedin.com/company/biasharaid" target="_blank"
+                    rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://www.facebook.com/biasharaid" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+            <p><a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                    }
+                });
+            });
+
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+
+</html>
