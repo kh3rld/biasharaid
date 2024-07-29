@@ -23,11 +23,7 @@ func RegisterRoutes(mux *http.ServeMux) {
 		handlers.HomeHandler(w, r)
 	})
 
-	mux.HandleFunc("/dummy", func(w http.ResponseWriter, r *http.Request) {
-		handlers.HomeHandler(w, r)
-	})
-
-	mux.HandleFunc("/verification", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/verify", func(w http.ResponseWriter, r *http.Request) {
 		handlers.Verification(w, r)
 	})
 
