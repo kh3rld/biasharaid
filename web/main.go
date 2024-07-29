@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/kh3rld/biasharaid/routes"
 )
 
 func main() {
