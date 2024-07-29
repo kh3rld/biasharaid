@@ -15,6 +15,7 @@ type Entreprenuer struct {
 	Business   Business `json:"business"`
 	Phone      string   `json:"phone"`
 	NationalID string   `json:"national_id"`
+	IsGenesis  bool     `json:"is_genesis"`
 }
 
 // Business define the structure for the business
@@ -94,4 +95,9 @@ func validBlock(newBlock, prevBlock *Block) bool {
 		return false
 	}
 	return true
+}
+
+// GenesisBlock initializes a new blockchain with genesis block
+func (b *Block) GenesisBlock() *Block {
+	return b.createBlock(&Block{}, Entreprenuer{IsGenesis: true})
 }
