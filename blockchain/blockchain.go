@@ -1,7 +1,7 @@
 package blockchain
 
-// Define the structure for the person
-type Person struct {
+// Define the structure for the entreprenuer
+type Entreprenuer struct {
 	FirstName  string   `json:"first_name"`
 	SecondName string   `json:"second_name"`
 	Location   string   `json:"location"`
