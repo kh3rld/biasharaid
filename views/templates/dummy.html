@@ -1,0 +1,203 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Business Data - BiasharaID</title>
+		<link
+			rel="stylesheet"
+			href="../styles/details.css"
+		/>
+	<title>Dummy Data</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: rgb(135, 138, 140);
+				color: #333;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+			}
+			.container {
+				background-color: #fff;
+				border-radius: 8px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+				padding: 20px;
+				width: 80%;
+				max-width: 1200px;
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+			th,
+			td {
+				border: 1px solid #ddd;
+				padding: 12px;
+				text-align: left;
+			}
+			th {
+				background-color: #f2f2f2;
+			}
+			pre {
+				background-color: #f9f9f9;
+				padding: 10px;
+				border-radius: 4px;
+				overflow: auto;
+				max-height: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Blockchain Data</h1>
+			<table id="blockchain-table">
+				<thead>
+					<tr>
+						<th>Position</th>
+						<th>Timestamp</th>
+						<th>Previous Hash</th>
+						<th>Hash</th>
+						<th>Data</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{range .}}
+					<tr>
+						<td>{{.Pos}}</td>
+						<td>{{.Timestamp}}</td>
+						<td>{{.PrevHash}}</td>
+						<td>{{.Hash}}</td>
+						<td>
+							<pre>{{ .Data}}</pre>
+						</td>
+					</tr>
+					{{end}}
+				</tbody>
+			</table>
+		</div>
+
+				<svg
+					class="blockchain-graphic"
+					viewBox="0 0 800 200"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<rect
+						x="10"
+						y="10"
+						width="180"
+						height="180"
+						fill="#e6f7ff"
+						stroke="#0066cc"
+						stroke-width="2"
+					/>
+					<text
+						x="100"
+						y="100"
+						text-anchor="middle"
+						fill="#0066cc"
+						font-size="14"
+					>
+						Block 1
+					</text>
+					<rect
+						x="210"
+						y="10"
+						width="180"
+						height="180"
+						fill="#e6f7ff"
+						stroke="#0066cc"
+						stroke-width="2"
+					/>
+					<text
+						x="300"
+						y="100"
+						text-anchor="middle"
+						fill="#0066cc"
+						font-size="14"
+					>
+						Block 2
+					</text>
+					<rect
+						x="410"
+						y="10"
+						width="180"
+						height="180"
+						fill="#e6f7ff"
+						stroke="#0066cc"
+						stroke-width="2"
+					/>
+					<text
+						x="500"
+						y="100"
+						text-anchor="middle"
+						fill="#0066cc"
+						font-size="14"
+					>
+						Block 3
+					</text>
+					<rect
+						x="610"
+						y="10"
+						width="180"
+						height="180"
+						fill="#e6f7ff"
+						stroke="#00cc99"
+						stroke-width="4"
+					/>
+					<text
+						x="700"
+						y="100"
+						text-anchor="middle"
+						fill="#00cc99"
+						font-size="14"
+					>
+						Your Data
+					</text>
+					<line
+						x1="190"
+						y1="100"
+						x2="210"
+						y2="100"
+						stroke="#0066cc"
+						stroke-width="2"
+					/>
+					<line
+						x1="390"
+						y1="100"
+						x2="410"
+						y2="100"
+						stroke="#0066cc"
+						stroke-width="2"
+					/>
+					<line
+						x1="590"
+						y1="100"
+						x2="610"
+						y2="100"
+						stroke="#0066cc"
+						stroke-width="2"
+					/>
+				</svg>
+			</section>
+		</div>
+
+		<footer>
+			<div class="container">
+				<p>
+					Need help? Contact our support team at
+					<a href="mailto:support@biasharaid.com">support@biasharaid.com</a>
+				</p>
+				<p>
+					<a href="/privacy">Privacy Policy</a> |
+					<a href="/terms">Terms of Service</a>
+				</p>
+			</div>
+		</footer>
+	</body>
+</html>
