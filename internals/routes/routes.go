@@ -15,7 +15,7 @@ var allowedRoutes = map[string]bool{
 	"/dummy":   true,
 	"/contact": true,
 	"/test":    true,
-	"/signup":     true,
+	"/signup":  true,
 	"/addpage": true,
 }
 
