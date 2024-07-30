@@ -73,11 +73,13 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		renders.RenderTemplate(w, "signup.page.html", nil)
 		return
 	case "POST":
+		var entrepreneur blockchain.Entrepreneur
 		if err := r.ParseForm(); err != nil {
 			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
 			return
 		}
 
+		
 		first_name := r.FormValue("first_name")
 		second_name := r.FormValue("second_name")
 		location := r.FormValue("location")
@@ -88,6 +90,29 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		business_value := r.FormValue("business_value")
 		name := r.FormValue("name")
 		address := r.FormValue("address")
+
+		business := blockchain.Business{
+			BusinessID:    business_id,
+			Status:        status,
+			BusinessValue: business_value,
+			Name:          name,
+			Address:       address,
+		}
+	
+		// Create an instance of Entrepreneur
+		entrepreneur = blockchain.Entrepreneur {
+			FirstName:  first_name,
+			SecondName: second_name,
+			Location:   location,
+			Business:   business,
+			Phone:      phone,
+			NationalID: national_id,
+			IsGenesis:  false,
+		}
+
+		blockchain.BlockchainInstance.AddBlock(entrepreneur)
+
+		
 
 		renders.RenderTemplate(w, "signup.page.html", nil)
 	default:
