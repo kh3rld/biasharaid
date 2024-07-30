@@ -1,5 +1,5 @@
 # ignore build files
 /tmp
 *.out
-*.mod
+go.mod
 *.log
