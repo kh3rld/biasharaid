@@ -5,10 +5,13 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/kh3rld/biasharaid/blockchain"
 	"github.com/kh3rld/biasharaid/internals/routes"
 )
 
 func main() {
+	blockchain.BlockchainInstance = blockchain.InitializeBlockchain()
+
 	mux := http.NewServeMux()
 	routes.RegisterRoutes(mux)
 
