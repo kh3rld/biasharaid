@@ -29,31 +29,45 @@ func DummyHandler(w http.ResponseWriter, r *http.Request) {
 	resp := blockchain.BlockchainInstance.Blocks
 	renders.RenderTemplate(w, "dummy.page.html", resp)
 }
+
 func TestHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
+	switch r.Method {
+	case "GET":
 		renders.RenderTemplate(w, "test.page.html", nil)
-		return
-	}
-	nationalID := r.URL.Query().Get("national_id")
-	fmt.Println("National ID:", r)
-	if nationalID == "" {
-		BadRequestHandler(w, r)
-		return
-	}
-
-	var block *blockchain.Block
-	for _, b := range blockchain.BlockchainInstance.Blocks {
-		if b.Data.NationalID == nationalID {
-			block = b
-			break
+	case "POST":
+		// Parse form values
+		if err := r.ParseForm(); err != nil {
+			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
+			return
 		}
-	}
 
-	if block == nil {
-		renders.RenderTemplate(w, "not_found.page.html", nil)
-		return
+		// Extract 'national_id' from form data
+		nationalID := r.FormValue("national_id")
+		fmt.Println("National ID:", nationalID)
+
+		if nationalID == "" {
+			BadRequestHandler(w, r)
+			return
+		}
+
+		// Search for the block with the given national ID
+		var block *blockchain.Block
+		for _, b := range blockchain.BlockchainInstance.Blocks {
+			if b.Data.NationalID == nationalID {
+				block = b
+				break
+			}
+		}
+
+		if block == nil {
+			renders.RenderTemplate(w, "not_found.page.html", nil)
+			return
+		}
+
+		renders.RenderTemplate(w, "test.page.html", block)
+	default:
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
-	renders.RenderTemplate(w, "test.page.html", block)
 }
 
 func Add(w http.ResponseWriter, r *http.Request) {
