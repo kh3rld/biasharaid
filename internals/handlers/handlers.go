@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -35,24 +34,22 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		renders.RenderTemplate(w, "test.page.html", nil)
 	case "POST":
-		// Parse form values
 		if err := r.ParseForm(); err != nil {
 			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
 			return
 		}
 
-		// Extract 'national_id' from form data
 		nationalID := r.FormValue("national_id")
-		fmt.Println("National ID:", nationalID)
 
 		if nationalID == "" {
 			BadRequestHandler(w, r)
 			return
 		}
 
-		// Search for the block with the given national ID
 		var block *blockchain.Block
+		fmt.Println(block)
 		for _, b := range blockchain.BlockchainInstance.Blocks {
+			fmt.Println(b.Data.NationalID)
 			if b.Data.NationalID == nationalID {
 				block = b
 				break
@@ -71,7 +68,7 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func Add(w http.ResponseWriter, r *http.Request) {
-	
+
 }
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
