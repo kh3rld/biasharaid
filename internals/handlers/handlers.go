@@ -38,6 +38,55 @@ func DummyHandler(w http.ResponseWriter, r *http.Request) {
 	renders.RenderTemplate(w, "dummy.page.html", resp)
 }
 
+func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		// Parse the form to retrieve file
+		err := r.ParseMultipartForm(10 << 20) // 10 MB limit
+		if err != nil {
+			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
+			return
+		}
+
+		// Retrieve the file from the form
+		file, _, err := r.FormFile("certificate")
+		if err != nil {
+			http.Error(w, "Failed to retrieve file", http.StatusInternalServerError)
+			return
+		}
+		defer file.Close()
+
+		// Define the temporary file path
+		tempFilePath := "./static/uploads/temp_image.jpeg"
+		tempFile, err := os.Create(tempFilePath)
+		if err != nil {
+			http.Error(w, "Failed to create file", http.StatusInternalServerError)
+			return
+		}
+		defer tempFile.Close()
+
+		// Copy the uploaded file content to the temporary file
+		_, err = io.Copy(tempFile, file)
+		if err != nil {
+			http.Error(w, "Failed to save file", http.StatusInternalServerError)
+			return
+		}
+
+		// Call analyzeImage to process the temporary image
+		analyzeImage(tempFilePath)
+
+		// Send a success response
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		w.WriteHeader(http.StatusOK)
+		_, err = w.Write([]byte("Image analyzed successfully"))
+		if err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+		}
+
+	} else {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
+}
+
 func analyzeImage(imagePath string) {
 	ctx := context.Background()
 	client, err := vision.NewImageAnnotatorClient(ctx, option.WithCredentialsFile("path/to/your-service-account-key.json"))
