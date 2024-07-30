@@ -26,6 +26,7 @@
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
+                    <li><a href="/verify">Verify</a></li>
                     <li><a href="/about">About</a></li>
                     <li><a href="/contact">Contact</a></li>
                     <li><a href="/help">Help</a></li>
@@ -48,7 +49,7 @@
             <p><a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
         </div>
     </footer>
-
+    {{block "script" .}}{{end}}
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             const fadeElements = document.querySelectorAll('.fade-in');
@@ -67,5 +68,4 @@
     </script>
 </body>
 
-</html>
 {{end}}
