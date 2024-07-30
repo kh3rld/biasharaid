@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/kh3rld/biasharaid/blockchain"
@@ -63,7 +62,6 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fmt.Println(block)
 		renders.RenderTemplate(w, "verify.page.html", block)
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
