@@ -1,131 +1,60 @@
-{{template "base"}}
-{{define "content"}}
+{{template "base" .}}
+{{define "css"}}
 <link rel="stylesheet" href="../static/verify.css">
-		<div class="container">
-			<section class="form-section">
-				<h1>Enter Your Business ID Information</h1>
-				<p>
-					Please provide accurate information for your business. This data will
-					be securely stored and verified using blockchain technology.
-				</p>
+{{end}}
+{{define "content"}}
+	<div class="container">
+		{{if .}}
+		<pre>{{.}}</pre>
+		{{else}}
+		<section class="form-section">
+			<h1>Enter Your National ID </h1>
 
-				<form id="businessIdForm" action="/details" method="post">
-					<div>
-						<label for="businessId">Business ID:</label>
-						<input
-							type="text"
-							id="businessId"
-							name="businessId"
-							required
-						/>
-						<div
-							class="error"
-							id="businessIdError"
-						></div>
-					</div>
+			<form id="businessIdForm" action="/details" method="POST">
+				<div>
+					<input
+						type="text"
+						id="businessId"
+						name="businessId"
+						required
+					/>
+					<div
+						class="error"
+						id="businessIdError"
+					></div>
+				</div>
+				<button
+					type="submit"
+					class="submit-btn"
+				>
+					Submit Business Information
+				</button>
+			</form>
 
-					<div>
-						<label for="businessName">Business Name:</label>
-						<input
-							type="text"
-							id="businessName"
-							name="businessName"
-							required
-						/>
-						<div
-							class="error"
-							id="businessNameError"
-						></div>
-					</div>
-
-					<div>
-						<label for="businessType">Business Type:</label>
-						<select
-							id="businessType"
-							name="businessType"
-							required
-						>
-							<option value="">Select business type</option>
-							<option value="sole_proprietorship">Sole Proprietorship</option>
-							<option value="partnership">Partnership</option>
-							<option value="corporation">Corporation</option>
-							<option value="llc">Limited Liability Company (LLC)</option>
-						</select>
-						<div
-							class="error"
-							id="businessTypeError"
-						></div>
-					</div>
-
-					<div>
-						<label for="registrationDate">Registration Date:</label>
-						<input
-							type="date"
-							id="registrationDate"
-							name="registrationDate"
-							required
-						/>
-						<div
-							class="error"
-							id="registrationDateError"
-						></div>
-					</div>
-
-					<div>
-						<label for="documentUpload"
-							>Upload Business Registration Certificate:</label
-						>
-						<div
-							class="file-upload"
-							id="fileUpload"
-						>
-							<p>Click here to upload or drag and drop your file</p>
-							<input
-								type="file"
-								id="documentUpload"
-								name="documentUpload"
-								accept=".pdf,.jpg,.png"
-								style="display: none"
-							/>
-						</div>
-						<div
-							class="error"
-							id="documentUploadError"
-						></div>
-					</div>
-
-					<button
-						type="submit"
-						class="submit-btn"
-					>
-						Submit Business Information
-					</button>
-				</form>
-
-				<div class="tips">
-					<h3>Tips for Accurate Submission:</h3>
-					<ul>
-						<li>
-							Ensure your Business ID matches the one on your official
-							registration documents.
-						</li>
-						<li>
-							Double-check all entered information for accuracy before
-							submission.
-						</li>
-						<li>
+			<div class="tips">
+				<h3>Tips for Accurate Submission:</h3>
+				<ul>
+					<li>
+						Ensure the identification number matches the one on your official
+						registration documents.
+					</li>
+					<li>
+						Double-check all entered information for accuracy before
+						submission.
+					</li>
+						<!-- <li>
 							Upload clear, legible scans or photos of your business
 							registration certificate.
 						</li>
-						<li>Accepted file formats: PDF, JPG, PNG (Max file size: 5MB)</li>
-					</ul>
-				</div>
+						<li>Accepted file formats: PDF, JPG, PNG (Max file size: 5MB)</li> -->
+				</ul>
+			</div>
 
-				<div id="confirmationMessage">
-					Your business information has been successfully submitted for
-					verification.
-				</div>
-			</section>
-		</div>
-
+			<div id="confirmationMessage">
+				Your business information has been successfully submitted for
+				verification.
+			</div>
+		</section>
+		{{end}}
+	</div>
 {{end}}
