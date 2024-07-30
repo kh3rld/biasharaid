@@ -58,7 +58,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if block == nil {
-			renders.RenderTemplate(w, "not_found.page.html", nil)
+			renders.RenderTemplate(w, "404.html", nil)
 			return
 		}
 
