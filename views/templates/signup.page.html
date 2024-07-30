@@ -3,11 +3,13 @@
 <link rel="stylesheet" href="../static/add.css">
 {{end}}
 {{define "content"}}
-<h1>Add Entrepreneur to Blockchain</h1>
+<h1>Add Entrepreneur </h1>
 <div class="container">
     <section class="form-section">
         <h1>Entreprenuer Information</h1>
-        <form id="businessIdForm">
+        <form
+        id="businessIdForm"
+        method="POST">
             <div>
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" name="firstname" required>
