@@ -25,15 +25,14 @@
             <div class="navigation-options">
                 <a href="javascript:history.back()" class="btn">Go Back</a>
                 <a href="/" class="btn">Home</a>
-                <a href="/dashboard" class="btn">Dashboard</a>
-                <a href="/support" class="btn">Support</a>
+                <a href="/contact" class="btn">Support</a>
             </div>
 
             <h2>Still having issues?</h2>
             <p>If you believe this is a mistake or need further assistance, please contact our support team:</p>
 
             <div class="contact-form">
-                <form id="support-form">
+                <form id="support-form" action="/" method="POST">
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="email" name="email" placeholder="Your Email" required>
                     <textarea name="message" placeholder="Describe the issue you're experiencing" required></textarea>

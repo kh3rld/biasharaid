@@ -227,7 +227,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 		nationalID := r.FormValue("national_id")
 
 		if nationalID == "" {
-			BadRequestHandler(w, r)
+			renders.RenderTemplate(w, "verify.page.html", nil)
 			return
 		}
 
@@ -269,17 +269,17 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
 			return
 		}
-
-		first_name := r.FormValue("first_name")
-		second_name := r.FormValue("second_name")
+		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
+		first_name := r.FormValue("firstName")
+		second_name := r.FormValue("secondName")
 		location := r.FormValue("location")
 		phone := r.FormValue("phone")
 		national_id := r.FormValue("national_id")
 		business_id := r.FormValue("business_id")
 		status := r.FormValue("status")
-		business_value := r.FormValue("business_value")
-		name := r.FormValue("name")
-		address := r.FormValue("address")
+		business_value := r.FormValue("businessValue")
+		name := r.FormValue("businessName")
+		address := r.FormValue("businessaddress")
 
 		business := blockchain.Business{
 			BusinessID:    business_id,
@@ -301,7 +301,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		}
 
 		blockchain.BlockchainInstance.AddBlock(entrepreneur)
-
+		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
 		renders.RenderTemplate(w, "signup.page.html", nil)
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
