@@ -68,7 +68,7 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func Add(w http.ResponseWriter, r *http.Request) {
-
+	renders.RenderTemplate(w, "add.page.html", nil)
 }
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
