@@ -57,7 +57,7 @@ func (b *Block) CreateBlock(prevBlock *Block, person Entrepreneur) *Block {
 // GenerateHash generates a SHA-256 hash for the block
 func (b *Block) GenerateHash() string {
 	bytes, _ := json.Marshal(b.Data)
-	data := string(b.Pos) + b.Timestamp + string(bytes) + b.PrevHash
+	data := fmt.Sprintf("%d%s%s%s%d", b.Pos, b.Timestamp, string(bytes), b.PrevHash, b.Nonce)
 	hash := sha256.New()
 	hash.Write([]byte(data))
 	return hex.EncodeToString(hash.Sum(nil))
