@@ -12,6 +12,7 @@ var allowedRoutes = map[string]bool{
 	"/":        true,
 	"/verify":  true,
 	"/details": true,
+	"/dummy": true,
 }
 
 func RegisterRoutes(mux *http.ServeMux) {
@@ -29,6 +30,10 @@ func RegisterRoutes(mux *http.ServeMux) {
 
 	mux.HandleFunc("/details", func(w http.ResponseWriter, r *http.Request) {
 		handlers.Details(w, r)
+	})
+
+	mux.HandleFunc("/dummy", func(w http.ResponseWriter, r *http.Request) {
+		handlers.DummyHandler(w, r)
 	})
 }
 
