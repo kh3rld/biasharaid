@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/kh3rld/biasharaid/blockchain"
@@ -34,7 +35,7 @@ func DummyHandler(w http.ResponseWriter, r *http.Request) {
 func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		renders.RenderTemplate(w, "test.page.html", nil)
+		renders.RenderTemplate(w, "verify.page.html", nil)
 		return
 	case "POST":
 		if err := r.ParseForm(); err != nil {
@@ -62,7 +63,8 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		renders.RenderTemplate(w, "test.page.html", block)
+		fmt.Println(block)
+		renders.RenderTemplate(w, "verify.page.html", block)
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
