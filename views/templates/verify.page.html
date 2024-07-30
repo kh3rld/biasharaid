@@ -6,11 +6,22 @@
 {{end}} {{define "content"}}
 <div class="container">
 	<!-- {{if .}} -->
-	<div class="card">
-		<div class="content">
-			<pre>{{ .Data}}</pre>
-		</div>
-	</div>
+	<!-- <div class="card"> -->
+		<!-- <div class="content"> -->
+			<pre><b>Name: </b> {{ .Data.FirstName}} {{ .Data.SecondName}}</pre>
+			<pre><b>Location: </b>: {{ .Data.Location}} </pre>
+			<pre><b>Phone: </b> {{ .Data.Phone}} </pre>
+			<pre><b>NationalID: </b> {{ .Data.NationalID}}</pre>
+			<pre><b>Business Details: </b></pre>
+			<ul>
+				<li><pre><b>ID: </b> {{ .Data.Business.BusinessID}} </pre></li>
+				<li><pre><b>Status: </b> {{ .Data.Business.Status}} </pre></li>
+				<li><pre><b>Value: </b>{{ .Data.Business.BusinessValue}} </pre></li>
+				<li><pre><b>Name: </b> {{ .Data.Business.Name}} </pre></li>
+				<li><pre><b>Address: </b> {{ .Data.Business.Address}} </pre></li>
+			</ul>
+		<!-- </div> -->
+	<!-- </div> -->
 	<!-- {{else}} -->
 	<section class="form-section">
 		<h1>Enter Your National ID</h1>
@@ -22,9 +33,8 @@
 			<div>
 				<input
 					type="text"
-					id="businessId"
-					name="businessId"
-					required
+					id="national_id"
+					name="national_id"
 				/>
 				<div
 					class="error"
