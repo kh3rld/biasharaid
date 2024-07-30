@@ -15,6 +15,10 @@ func Verification(w http.ResponseWriter, r *http.Request) {
 	renders.RenderTemplate(w, "verify.page.html", nil)
 }
 
+func Contact(w http.ResponseWriter, r *http.Request) {
+	renders.RenderTemplate(w, "contact.page.html", nil)
+}
+
 func Details(w http.ResponseWriter, r *http.Request) {
 }
 
@@ -25,15 +29,15 @@ func DummyHandler(w http.ResponseWriter, r *http.Request) {
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
-	renders.RenderTemplate(w, "notfound.page.html", nil)
+	renders.RenderTemplate(w, "404.page.html", nil)
 }
 
 func BadRequestHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusBadRequest)
-	renders.RenderTemplate(w, "badrequest.page.html", nil)
+	renders.RenderTemplate(w, "400.page.html", nil)
 }
 
 func ServerErrorHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusInternalServerError)
-	renders.RenderTemplate(w, "serverError.page.html", nil)
+	renders.RenderTemplate(w, "500.page.html", nil)
 }
