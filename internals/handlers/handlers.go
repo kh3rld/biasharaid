@@ -27,8 +27,25 @@ func DummyHandler(w http.ResponseWriter, r *http.Request) {
 	renders.RenderTemplate(w, "dummy.page.html", resp)
 }
 func TestHandler(w http.ResponseWriter, r *http.Request) {
-	resp := blockchain.BlockchainInstance.Blocks
-	renders.RenderTemplate(w, "dummy.page.html", resp)
+	nationalID := r.URL.Query().Get("national_id")
+	if nationalID == "" {
+		BadRequestHandler(w, r)
+		return
+	}
+
+	var block *blockchain.Block
+	for _, b := range blockchain.BlockchainInstance.Blocks {
+		if b.Data.NationalID == nationalID {
+			block = b
+			break
+		}
+	}
+
+	if block == nil {
+		renders.RenderTemplate(w, "not_found.page.html", nil)
+		return
+	}
+	renders.RenderTemplate(w, "dummy.page.html", block)
 }
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
