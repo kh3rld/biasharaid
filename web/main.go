@@ -16,11 +16,11 @@ func main() {
 	mux := http.NewServeMux()
 	routes.RegisterRoutes(mux)
 
-	// wrappedMux := routes.RouteChecker(mux)
+	wrappedMux := routes.RouteChecker(mux)
 
 	server := &http.Server{
 		Addr:    ":8080",
-		Handler: mux,
+		Handler: wrappedMux,
 	}
 
 	fmt.Println("server running @http://localhost:8080")

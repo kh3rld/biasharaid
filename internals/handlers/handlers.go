@@ -33,6 +33,7 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		renders.RenderTemplate(w, "test.page.html", nil)
+		return
 	case "POST":
 		if err := r.ParseForm(); err != nil {
 			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
@@ -46,8 +47,9 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
+
 		var block *blockchain.Block
-		fmt.Println(block)
 		for _, b := range blockchain.BlockchainInstance.Blocks {
 			fmt.Println(b.Data.NationalID)
 			if b.Data.NationalID == nationalID {
@@ -55,6 +57,7 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 				break
 			}
 		}
+		fmt.Println(block)
 
 		if block == nil {
 			renders.RenderTemplate(w, "not_found.page.html", nil)
