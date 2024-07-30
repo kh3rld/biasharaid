@@ -12,10 +12,26 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{range .}}
+					{{ $first := true }}
+    {{range .}}
+    {{ if $first }}
+        {{ $first = false }} <!-- Skip the first iteration -->
+        {{ continue }}
+    {{ end }}
 					<tr>
 						<td>
-							<pre>{{ .Data.FirstName}}</pre>
+							<pre><b>Name: </b> {{ .Data.FirstName}} {{ .Data.SecondName}}</pre>
+							<pre><b>Location: </b>: {{ .Data.Location}} </pre>
+							<pre><b>Phone: </b> {{ .Data.Phone}} </pre>
+							<pre><b>NationalID: </b> {{ .Data.NationalID}}</pre>
+							<pre><b>Business Details: </b></pre>
+							<ul>
+								<li><pre><b>ID: </b> {{ .Data.Business.BusinessID}} </pre></li>
+								<li><pre><b>Status: </b> {{ .Data.Business.Status}} </pre></li>
+								<li><pre><b>Value: </b>{{ .Data.Business.BusinessValue}} </pre></li>
+								<li><pre><b>Name: </b> {{ .Data.Business.Name}} </pre></li>
+								<li><pre><b>Address: </b> {{ .Data.Business.Address}} </pre></li>
+							</ul>
 						</td>
 					</tr>
 					{{end}}
