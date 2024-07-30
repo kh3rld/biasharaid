@@ -12,7 +12,6 @@
 			id="businessForm"
 			method="POST"
 			enctype="multipart/form-data"
-			
 		>
 			<div>
 				<label for="firstName">First Name:</label>
@@ -59,9 +58,10 @@
 			<div>
 				<label for="phone">Phone:</label>
 				<input
-					type="text"
+					type="number"
 					id="phone"
 					name="phone"
+                    maxlength="10"
 					required
 				/>
 				<div
@@ -73,9 +73,11 @@
 			<div>
 				<label for="national_id">National ID:</label>
 				<input
-					type="text"
+					type="number"
 					id="national_id"
 					name="national_id"
+                    minlength="8"
+                    maxlength="8"
 					required
 				/>
 				<div
@@ -127,6 +129,7 @@
 				></div>
 			</div>
 
+
 			<div>
 				<label for="businessName">Business Name:</label>
 				<input
@@ -172,6 +175,9 @@
 				Submit Business Information
 			</button>
 		</form>
+
+        <div id="loading"></div>
+
 		<div class="tips">
 			<h3>Tips for Accurate Submission:</h3>
 			<ul>
@@ -190,11 +196,19 @@
 			</ul>
 		</div>
 
-		<div id="confirmationMessage">
-			Your business information has been successfully submitted for
-			verification.
-		</div>
-	</section>
+        <div id="confirmationMessage">
+            Your business information has been successfully submitted for verification.
+        </div>
+    </section>
+
 </div>
+{{end}}
+{{define "script"}}
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function() {
+            // Show the loading icon when the form is submitted
+            document.getElementById('loading').style.display = 'block';
+        });
+    </script>
 
 {{end}}
