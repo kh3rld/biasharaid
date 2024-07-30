@@ -12,7 +12,6 @@
 			id="businessForm"
 			method="POST"
 			enctype="multipart/form-data"
-			
 		>
 			<div>
 				<label for="firstName">First Name:</label>
@@ -56,17 +55,46 @@
 				></div>
 			</div>
 
+
             <div>
                 <label for="phone">Phone:</label>
-                <input type="text" id="phone" name="phone" required>
+                <input type="number" id="phone" name="phone" maxlength="10" required>
                 <div class="error" id="phoneError"></div>
             </div>
 
             <div>
                 <label for="national_id">National ID:</label>
-                <input type="text" id="national_id" name="national_id" required>
+                <input type="number" id="national_id" name="national_id" minlength="8" maxlength="8" required>
                 <div class="error" id="national_idError"></div>
             </div>
+
+			<div>
+				<label for="phone">Phone:</label>
+				<input
+					type="text"
+					id="phone"
+					name="phone"
+					required
+				/>
+				<div
+					class="error"
+					id="phoneError"
+				></div>
+			</div>
+
+			<div>
+				<label for="national_id">National ID:</label>
+				<input
+					type="text"
+					id="national_id"
+					name="national_id"
+					required
+				/>
+				<div
+					class="error"
+					id="national_idError"
+				></div>
+			</div>
 
 			<h1>Business Information</h1>
 
@@ -99,9 +127,23 @@
 
             <div>
                 <label for="businessValue">Business Value:</label>
-                <input type="text" id="businessValue" name="businessValue" required>
+                <input type="number" id="businessValue" name="businessValue" required>
                 <div class="error" id="businessValueError"></div>
             </div>
+			<div>
+				<label for="businessValue">Business Value:</label>
+				<input
+					type="text"
+					id="businessValue"
+					name="businessValue"
+					required
+				/>
+				<div
+					class="error"
+					id="businessValueError"
+				></div>
+			</div>
+
 
 			<div>
 				<label for="businessName">Business Name:</label>
@@ -141,8 +183,33 @@
 				/>
 			</div>
 
-            <button type="submit" class="submit-btn">Submit Business Information</button>
-        </form>
+			<button
+				type="submit"
+				class="submit-btn"
+			>
+				Submit Business Information
+			</button>
+		</form>
+
+        <div id="loading"></div>
+
+		<div class="tips">
+			<h3>Tips for Accurate Submission:</h3>
+			<ul>
+				<li>
+					Ensure your Personal and Business ID match the one on your official
+					registration documents.
+				</li>
+				<li>
+					Double-check all entered information for accuracy before submission.
+				</li>
+				<li>
+					Upload clear, legible scans or photos of your business registration
+					certificate.
+				</li>
+				<li>Accepted file formats: PDF, JPG, PNG (Max file size: 5MB)</li>
+			</ul>
+		</div>
 
         <div class="tips">
             <h3>Tips for Accurate Submission:</h3>
@@ -154,11 +221,11 @@
             </ul>
         </div>
 
-		<div id="confirmationMessage">
-			Your business information has been successfully submitted for
-			verification.
-		</div>
-	</section>
+        <div id="confirmationMessage">
+            Your business information has been successfully submitted for verification.
+        </div>
+    </section>
+
 </div>
 {{end}}
 {{define "script"}}
