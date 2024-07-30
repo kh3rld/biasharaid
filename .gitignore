@@ -4,3 +4,4 @@
 go.mod
 *.log
 .air.toml
+*.jpeg

@@ -153,7 +153,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create a file in the upload directory with a .jpeg extension
-		filePath := filepath.Join(uploadDir, "uploaded_certificate.jpeg")
+		filePath := filepath.Join(uploadDir, "uploaded_nationalID.jpeg")
 		outFile, err := os.Create(filePath)
 		if err != nil {
 			http.Error(w, "Failed to create file", http.StatusInternalServerError)
@@ -174,7 +174,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		// Send a success response
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		w.WriteHeader(http.StatusOK)
-		_, err = w.Write([]byte("File uploaded and saved as .jpeg successfully"))
+		_, err = w.Write([]byte("File uploaded and saved as uploaded_nationalID.jpeg successfully"))
 		if err != nil {
 			http.Error(w, "Failed to write response", http.StatusInternalServerError)
 		}
