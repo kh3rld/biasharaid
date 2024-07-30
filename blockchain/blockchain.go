@@ -83,7 +83,6 @@ func InitializeBlockchain() *Blockchain {
 		PrevHash:  "",
 	}
 	genesisBlock.Hash = genesisBlock.GenerateHash()
-	LoadData("../data.json")
 
 	return &Blockchain{[]*Block{genesisBlock}}
 }
