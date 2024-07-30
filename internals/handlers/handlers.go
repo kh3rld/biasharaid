@@ -71,20 +71,7 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func Add(w http.ResponseWriter, r *http.Request) {
-	var entrepreneur blockchain.Entrepreneur
-	if err := json.NewDecoder(r.Body).Decode(&entrepreneur); err != nil {
-		http.Error(w, "Invalid request payload: "+err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	if entrepreneur.FirstName == "" || entrepreneur.SecondName == "" {
-		http.Error(w, "Missing required fields", http.StatusBadRequest)
-		return
-	}
-
-	blockchain.BlockchainInstance.AddBlock(entrepreneur)
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Block added successfully"))
+	
 }
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
