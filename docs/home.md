@@ -9,3 +9,7 @@ Welcome to the biasharaid wiki!
 - [Usage Guide](Usage-Guide)
   - [Basic Usage](Usage-Guide#basic-usage)
   -[Accesing the server](Usage-Guide#accessing-the-server)
+- [Architecture](Architecture)
+  - [Overview](Architecture#overview)
+  - [Modules](Architecture#modules)
+  - [Data Flow](Architecture#data-flow)
