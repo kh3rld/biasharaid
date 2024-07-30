@@ -68,7 +68,7 @@ func (b *Block) ValidateHash(hash string) bool {
 
 // Blockchain defines the structure for the blockchain
 type Blockchain struct {
-	blocks []*Block
+	Blocks []*Block
 }
 
 // BlockchainInstance declares a global blockchain instance
@@ -89,11 +89,11 @@ func InitializeBlockchain() *Blockchain {
 
 // AddBlock adds a new block to the blockchain
 func (bc *Blockchain) AddBlock(data Entrepreneur) {
-	prevBlock := bc.blocks[len(bc.blocks)-1]
+	prevBlock := bc.Blocks[len(bc.Blocks)-1]
 	newBlock := prevBlock.CreateBlock(prevBlock, data)
 
 	if validBlock(newBlock, prevBlock) {
-		bc.blocks = append(bc.blocks, newBlock)
+		bc.Blocks = append(bc.Blocks, newBlock)
 	}
 }
 
@@ -130,6 +130,5 @@ func LoadData(filename string) error {
 	for _, entrepreneur := range entrepreneurs {
 		BlockchainInstance.AddBlock(entrepreneur)
 	}
-
 	return nil
 }

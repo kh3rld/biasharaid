@@ -12,12 +12,14 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func Verification(w http.ResponseWriter, r *http.Request) {
+	renders.RenderTemplate(w, "verify.page.html", nil)
 }
 
 func Details(w http.ResponseWriter, r *http.Request) {
 }
+
 func DummyHandler(w http.ResponseWriter, r *http.Request) {
-	resp := blockchain.BlockchainInstance
+	resp := blockchain.BlockchainInstance.Blocks
 	renders.RenderTemplate(w, "dummy.page.html", resp)
 }
 
