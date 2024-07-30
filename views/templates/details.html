@@ -1,37 +1,5 @@
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Data - BiasharaID</title> 
-    <link rel="stylesheet" href="../styles/details.css">
-</head>
-
-<body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <svg class="blockchain-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 16V8L12 4L4 8V16L12 20L20 16Z" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M4 8L12 12L20 8" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M12 12V20" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-                <span style="font-size: 24px; font-weight: bold; color: var(--primary-color);">BiasharaID</span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/dashboard">Dashboard</a></li>
-                    <li><a href="/edit-data">Edit Data</a></li>
-                    <li><a href="/support">Support</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+{{template "base"}}
+{{define "content"}}
 
     <div class="container">
         <section class="business-data">
@@ -95,46 +63,4 @@
             </svg>
         </section>
     </div>
-
-    <footer>
-        <div class="container">
-            <p>Need help? Contact our support team at <a href="mailto:support@biasharaid.com">support@biasharaid.com</a>
-            </p>
-            <p><a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            // Simulating data retrieval from blockchain
-            const businessData = {
-                businessId: "BID123456789",
-                businessName: "TechInnovate Solutions Ltd",
-                businessType: "Limited Liability Company (LLC)",
-                registrationDate: "15-05-2022",
-                verificationStatus: "Verified",
-                transactionId: "0x1234567890abcdef1234567890abcdef12345678",
-                timestamp: "2023-06-15 14:30:22 UTC"
-            };
-
-            // Populating the data
-            document.getElementById('businessId').textContent = businessData.businessId;
-            document.getElementById('businessName').textContent = businessData.businessName;
-            document.getElementById('businessType').textContent = businessData.businessType;
-            document.getElementById('registrationDate').textContent = businessData.registrationDate;
-            document.getElementById('verificationStatus').textContent = businessData.verificationStatus;
-            document.getElementById('transactionId').textContent = businessData.transactionId;
-            document.getElementById('timestamp').textContent = businessData.timestamp;
-
-            // Update verification status style
-            const statusElement = document.getElementById('verificationStatus');
-            if (businessData.verificationStatus === "Verified") {
-                statusElement.classList.add('verified');
-            } else {
-                statusElement.classList.add('pending');
-            }
-        });
-    </script>
-</body>
-
-</html>
+{{end}}
