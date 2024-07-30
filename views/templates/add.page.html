@@ -42,7 +42,12 @@
     <button type="submit">Add Block</button>
 </form>
 
-<div class="response" id="response-message"></div>
+
+<div>
+	{{if .Body}}
+	<pre>{{.Body}}</pre>
+	{{ end }}
+</div>
 
 <script>
     document.getElementById('entrepreneur-form').addEventListener('submit', function(event) {
@@ -65,7 +70,7 @@
             }
         };
         
-        fetch('/add', {
+        fetch('/addpage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
