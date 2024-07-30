@@ -1,24 +1,17 @@
 {{template "base"}}
 {{define "content"}}
 		<style>
-			body {
-				font-family: Arial, sans-serif;
+			body, html {
 				background-color: rgb(135, 138, 140);
-				color: #333;
-				margin: 0;
-				padding: 0;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				height: 100vh;
 			}
 			.container {
-				background-color: #fff;
+				background-color: #bdb4b4;
 				border-radius: 8px;
 				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 				padding: 20px;
 				width: 80%;
 				max-width: 1200px;
+				display: flex;
 			}
 			table {
 				width: 100%;
@@ -31,19 +24,20 @@
 				text-align: left;
 			}
 			th {
-				background-color: #f2f2f2;
+				background-color: #252e32;
+				color: rgb(228, 251, 83)
 			}
 			pre {
-				background-color: #f9f9f9;
+				background-color: #586b73;
 				padding: 10px;
 				border-radius: 4px;
 				overflow: auto;
 				max-height: 200px;
 			}
 		</style>
-	
+	<h1>Blockchain Data</h1>
 		<div class="container">
-			<h1>Blockchain Data</h1>
+			
 			<table id="blockchain-table">
 				<thead>
 					<tr>

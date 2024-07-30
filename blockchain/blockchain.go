@@ -4,6 +4,8 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
+	"os"
 	"time"
 )
 
@@ -109,4 +111,25 @@ func validBlock(newBlock, prevBlock *Block) bool {
 		return false
 	}
 	return true
+}
+
+// LoadData loads blockchain data from a JSON file and add it to the blockchain
+func LoadData(filename string) error {
+	file, err := os.Open(filename)
+	if err != nil {
+		return fmt.Errorf("error opening file: %w", err)
+	}
+	defer file.Close()
+
+	var entrepreneurs []Entrepreneur
+	decoder := json.NewDecoder(file)
+	if err := decoder.Decode(&entrepreneurs); err != nil {
+		return fmt.Errorf("error decoding JSON: %w", err)
+	}
+
+	for _, entrepreneur := range entrepreneurs {
+		BlockchainInstance.AddBlock(entrepreneur)
+	}
+
+	return nil
 }
