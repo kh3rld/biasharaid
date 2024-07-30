@@ -83,6 +83,7 @@ func InitializeBlockchain() *Blockchain {
 		PrevHash:  "",
 	}
 	genesisBlock.Hash = genesisBlock.GenerateHash()
+	LoadData("../data.json")
 
 	return &Blockchain{[]*Block{genesisBlock}}
 }
@@ -115,7 +116,6 @@ func validBlock(newBlock, prevBlock *Block) bool {
 
 // LoadData loads blockchain data from a JSON file and add it to the blockchain
 func LoadData(filename string) error {
-	fmt.Println("first: ", len(BlockchainInstance.blocks))
 	file, err := os.Open(filename)
 	if err != nil {
 		return fmt.Errorf("error opening file: %w", err)
@@ -131,8 +131,5 @@ func LoadData(filename string) error {
 	for _, entrepreneur := range entrepreneurs {
 		BlockchainInstance.AddBlock(entrepreneur)
 	}
-
-	fmt.Println("second: ", len(BlockchainInstance.blocks))
-
 	return nil
 }

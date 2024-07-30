@@ -11,7 +11,6 @@ import (
 
 func main() {
 	blockchain.BlockchainInstance = blockchain.InitializeBlockchain()
-	blockchain.LoadData("../data.json")
 
 	mux := http.NewServeMux()
 	routes.RegisterRoutes(mux)
