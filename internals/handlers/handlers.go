@@ -47,11 +47,8 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
-
 		var block *blockchain.Block
 		for _, b := range blockchain.BlockchainInstance.Blocks {
-			fmt.Println(b.Data.NationalID)
 			if b.Data.NationalID == nationalID {
 				block = b
 				break
