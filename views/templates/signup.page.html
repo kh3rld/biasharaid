@@ -1,89 +1,93 @@
-{{template "base" .}}{{define "content"}}
+{{template "base" .}}
+{{define "css"}}
 <link rel="stylesheet" href="../static/add.css">
+{{end}}
+{{define "content"}}
 <h1>Add Entrepreneur to Blockchain</h1>
-<form id="entrepreneur-form">
-    <h2>Entrepreneur Information</h2>
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="first_name" required>
-    
-    <label for="secondName">Second Name:</label>
-    <input type="text" id="secondName" name="second_name" required>
-    
-    <label for="location">Location:</label>
-    <input type="text" id="location" name="location" required>
-    
-    <label for="phone">Phone:</label>
-    <input type="tel" id="phone" name="phone" required>
-    
-    <label for="nationalID">National ID:</label>
-    <input type="text" id="nationalID" name="national_id" required>
-    
-    <label for="isGenesis">
-        <input type="checkbox" id="isGenesis" name="is_genesis">
-        Is Genesis Block
-    </label>
-    
-    <h2>Business Information</h2>
-    <label for="businessID">Business ID:</label>
-    <input type="text" id="businessID" name="business_id" required>
-    
-    <label for="status">Status:</label>
-    <input type="text" id="status" name="status" required>
-    
-    <label for="businessValue">Business Value:</label>
-    <input type="text" id="businessValue" name="business_value" required>
-    
-    <label for="businessName">Business Name:</label>
-    <input type="text" id="businessName" name="name" required>
-    
-    <label for="businessAddress">Business Address:</label>
-    <input type="text" id="businessAddress" name="address" required>
-    
-    <button type="submit">Add Block</button>
-</form>
+<div class="container">
+    <section class="form-section">
+        <h1>Entreprenuer Information</h1>
+        <form id="businessIdForm">
+            <div>
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstname" required>
+                <div class="error" id="firstNameError"></div>
+            </div>
 
+            <div>
+                <label for="secondName">Second Name:</label>
+                <input type="text" id="secondName" name="secondname" required>
+                <div class="error" id="secondNameError"></div>
+            </div>
 
-<div>
-	{{if .Body}}
-	<pre>{{.Body}}</pre>
-	{{ end }}
+            <div>
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+                <div class="error" id="locationError"></div>
+            </div>
+
+            <div>
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" required>
+                <div class="error" id="phoneError"></div>
+            </div>
+
+            <div>
+                <label for="national_id">National ID:</label>
+                <input type="text" id="national_id" name="national_id" required>
+                <div class="error" id="national_idError"></div>
+            </div>
+
+            <h1>Business Information</h1>
+
+            <div>
+                <label for="businessId">Business ID:</label>
+                <input type="text" id="business_id" name="business_id" required>
+                <div class="error" id="businessIdError"></div>
+            </div>
+
+            <div>
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="">Select status</option>
+                    <option value="active">active</option>
+                    <option value="inactive">inactive</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="businessValue">Business Value:</label>
+                <input type="text" id="businessValue" name="businessValue" required>
+                <div class="error" id="businessValueError"></div>
+            </div>
+
+            <div>
+                <label for="businessName">Business Name:</label>
+                <input type="text" id="businessName" name="businessName" required>
+                <div class="error" id="businessNameError"></div>
+            </div>
+
+            <div>
+                <label for="businessaddress">Business Address:</label>
+                <input type="text" id="businessaddress" name="businessaddress" required>
+                <div class="error" id="businessAddressError"></div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Business Information</button>
+        </form>
+
+        <div class="tips">
+            <h3>Tips for Accurate Submission:</h3>
+            <ul>
+                <li>Ensure your Personal and Business ID match the one on your official registration documents.</li>
+                <li>Double-check all entered information for accuracy before submission.</li>
+            </ul>
+        </div>
+
+        <div id="confirmationMessage">
+            Your business information has been successfully submitted for verification.
+        </div>
+    </section>
 </div>
 
-<script>
-    document.getElementById('entrepreneur-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const formData = new FormData(event.target);
-        const data = {
-            FirstName: formData.get('first_name'),
-            SecondName: formData.get('second_name'),
-            Location: formData.get('location'),
-            Phone: formData.get('phone'),
-            NationalID: formData.get('national_id'),
-            IsGenesis: formData.get('is_genesis') === 'on',
-            Business: {
-                BusinessID: formData.get('business_id'),
-                Status: formData.get('status'),
-                BusinessValue: formData.get('business_value'),
-                Name: formData.get('name'),
-                Address: formData.get('address')
-            }
-        };
-        
-        fetch('/addpage', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.text())
-        .then(responseText => {
-            document.getElementById('response-message').textContent = responseText;
-        })
-        .catch(error => {
-            document.getElementById('response-message').textContent = 'Error: ' + error.message;
-        });
-    });
-</script>
 {{end}}
