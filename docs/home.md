@@ -13,3 +13,8 @@ Welcome to the biasharaid wiki!
   - [Overview](Architecture#overview)
   - [Modules](Architecture#modules)
   - [Data Flow](Architecture#data-flow)
+- [Development Guide](Development-Guide)
+  - [Setting Up](Development-Guide#setting-up)
+  - [Code Style](Development-Guide#code-style)
+  - [Contributing](Development-Guide#contributing)
+  - [Code of Conduct](Development-Guide#code-of-conduct)
