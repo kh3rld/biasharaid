@@ -1,16 +1,5 @@
-<html>
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
-		<title>Business Data - BiasharaID</title>
-		<link
-			rel="stylesheet"
-			href="../styles/details.css"
-		/>
-	<title>Dummy Data</title>
+{{template "base"}}
+{{define "content"}}
 		<style>
 			body {
 				font-family: Arial, sans-serif;
@@ -52,8 +41,7 @@
 				max-height: 200px;
 			}
 		</style>
-	</head>
-	<body>
+	
 		<div class="container">
 			<h1>Blockchain Data</h1>
 			<table id="blockchain-table">
@@ -187,17 +175,4 @@
 			</section>
 		</div>
 
-		<footer>
-			<div class="container">
-				<p>
-					Need help? Contact our support team at
-					<a href="mailto:support@biasharaid.com">support@biasharaid.com</a>
-				</p>
-				<p>
-					<a href="/privacy">Privacy Policy</a> |
-					<a href="/terms">Terms of Service</a>
-				</p>
-			</div>
-		</footer>
-	</body>
-</html>
+{{end}}
