@@ -40,16 +40,6 @@
                 <div class="error" id="national_idError"></div>
             </div>
 
-            <div>
-                <label for="documentUpload">Upload National ID:</label>
-                <div class="file-upload" id="fileUpload">
-                    <p>Click here to upload or drag and drop your file</p>
-                    <input type="file" id="documentUpload" name="documentUpload" accept=".pdf,.jpg,.png"
-                        style="display: none;">
-                </div>
-                <div class="error" id="documentUploadError"></div>
-            </div>
-
             <h1>Business Information</h1>
 
             <div>
@@ -85,15 +75,19 @@
                 <div class="error" id="businessAddressError"></div>
             </div>
 
-            <div>
-                <label for="documentUpload">Upload Business Registration Certificate:</label>
-                <div class="file-upload" id="fileUpload">
-                    <p>Click here to upload or drag and drop your file</p>
-                    <input type="file" id="documentUpload" name="documentUpload" accept=".pdf,.jpg,.png"
-                        style="display: none;">
-                </div>
-                <div class="error" id="documentUploadError"></div>
-            </div>
+            <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+            <label for="certificate">Choose Certificate:</label>
+            <input
+                type="file"
+                id="certificate"
+                name="certificate"
+                accept=".pdf,.png,.jpg,.jpeg"
+            />
+            <button type="submit">Upload</button>
+        </form>
 
             <button type="submit" class="submit-btn">Submit Business Information</button>
         </form>
