@@ -1,17 +1,17 @@
-## Architecture
+# Architecture
 
-### Overview
+## Overview
 
 The application is built using a modular architecture, separating concerns into different packages and directories. The main components include the blockchain logic, HTTP handlers, routing, and HTML rendering.
 
-### Components
+## Components
 
-#### blockchain/
+### blockchain/
 
 - **Purpose:** Contains the core logic for the blockchain implementation.
 - **File:** `blockchain.go` - Implements blockchain functionalities such as initialization and data loading.
 
-#### internals/
+### internals/
 
 - **Purpose:** Houses internal packages that include handlers, renders, and routes.
 - **Subdirectories:**
@@ -22,7 +22,7 @@ The application is built using a modular architecture, separating concerns into 
   - **routes/**: Registers and manages HTTP routes.
     - **File:** `routes.go` - Defines and registers application routes and middleware.
 
-#### views/
+### views/
 
 - **Purpose:** Holds static assets (CSS) and HTML templates.
 - **Subdirectories:**
@@ -31,14 +31,14 @@ The application is built using a modular architecture, separating concerns into 
   - **templates/**: Contains HTML templates for different pages.
     - **Files:** Templates like `400.page.html`, `404.page.html`, `500.page.html`, etc., each defining the structure of specific web pages.
 
-#### web/
+### web/
 
 - **Purpose:** Contains the main application logic and temporary files.
 - **Subdirectories:**
   - **tmp/**: Used for temporary files.
   - **main.go**: The entry point of the application that initializes and starts the server.
 
-#### Project Root Files
+### Project Root Files
 
 - **.air.toml:** Configuration file for the Air live reload tool.
 - **.gitignore:** Specifies which files and directories to ignore in Git.
@@ -47,7 +47,7 @@ The application is built using a modular architecture, separating concerns into 
 - **go.sum:** Checksums for the dependencies.
 - **README.md:** Documentation file providing an overview of the project.
 
-### Data Flow
+## Data Flow
 
 1. **Initialization:**
    - The blockchain is initialized and data is loaded from `data.json`.
@@ -58,13 +58,13 @@ The application is built using a modular architecture, separating concerns into 
 3. **Response Generation:**
    - Handlers interact with the blockchain logic and render appropriate HTML templates or JSON responses.
 
-### Technologies
+## Technologies
 
 - **Programming Language:** Go
 - **Web Framework:** net/http
 - **Blockchain Library:** Custom implementation (`github.com/kh3rld/biasharaid/blockchain`)
 
-### Deployment
+## Deployment
 
 1. **Development:**
    - Local setup using Go tools and Air for live reloading.
@@ -75,23 +75,23 @@ The application is built using a modular architecture, separating concerns into 
 3. **Production:**
    - Deployed on a production server with load balancing and scaling mechanisms.
 
-### Scalability
+## Scalability
 
 - **Horizontal Scaling:** Adding more instances of the application behind a load balancer.
 - **Vertical Scaling:** Enhancing the capabilities of the existing server.
 
-### Security
+## Security
 
 - **Authentication:** Bearer token authentication for API endpoints.
 - **Authorization:** Role-based access control.
 - **Data Protection:** Encryption of sensitive data at rest and in transit.
 
-### Error Handling
+## Error Handling
 
 - **Logging:** Errors are logged with detailed stack traces.
 - **Monitoring:** Application performance and errors are monitored using tools like Prometheus and Grafana.
 
-### Performance
+## Performance
 
 - **Optimization Techniques:** Efficient data structures and algorithms ensure fast processing.
 - **Benchmarking:** Regular performance tests to identify and resolve bottlenecks.
