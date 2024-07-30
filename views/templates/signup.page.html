@@ -55,25 +55,13 @@
 				></div>
 			</div>
 
-
-            <div>
-                <label for="phone">Phone:</label>
-                <input type="number" id="phone" name="phone" maxlength="10" required>
-                <div class="error" id="phoneError"></div>
-            </div>
-
-            <div>
-                <label for="national_id">National ID:</label>
-                <input type="number" id="national_id" name="national_id" minlength="8" maxlength="8" required>
-                <div class="error" id="national_idError"></div>
-            </div>
-
 			<div>
 				<label for="phone">Phone:</label>
 				<input
-					type="text"
+					type="number"
 					id="phone"
 					name="phone"
+                    maxlength="10"
 					required
 				/>
 				<div
@@ -85,9 +73,11 @@
 			<div>
 				<label for="national_id">National ID:</label>
 				<input
-					type="text"
+					type="number"
 					id="national_id"
 					name="national_id"
+                    minlength="8"
+                    maxlength="8"
 					required
 				/>
 				<div
