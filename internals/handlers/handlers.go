@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/kh3rld/biasharaid/blockchain"
 	"github.com/kh3rld/biasharaid/internals/renders"
@@ -31,6 +32,8 @@ func DummyHandler(w http.ResponseWriter, r *http.Request) {
 	resp := blockchain.BlockchainInstance.Blocks
 	renders.RenderTemplate(w, "dummy.page.html", resp)
 }
+
+// UploadHandler handles file upload requests
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
@@ -53,9 +56,17 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		defer file.Close()
 
-		// Process the file (e.g., save it to disk or handle it as needed)
-		// Example: Save the file to a local directory
-		outFile, err := os.Create("./uploads/uploaded_certificate")
+		// Define the upload directory and file path
+		uploadDir := "./static/uploads"
+		err = os.MkdirAll(uploadDir, os.ModePerm) // Create directory if it doesn't exist
+		if err != nil {
+			http.Error(w, "Failed to create directory", http.StatusInternalServerError)
+			return
+		}
+
+		// Create a file in the upload directory
+		filePath := filepath.Join(uploadDir, "uploaded_certificate")
+		outFile, err := os.Create(filePath)
 		if err != nil {
 			http.Error(w, "Failed to create file", http.StatusInternalServerError)
 			return
