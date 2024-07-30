@@ -1,73 +1,164 @@
 {{template "base" .}}{{define "content"}}
-<link rel="stylesheet" href="../static/contact.css">
+<link
+	rel="stylesheet"
+	href="../static/contact.css"
+/>
 <div class="container">
-    <h1>Contact Us</h1>
-    <p>We're here to help! Whether you have questions, need support, or want to share your feedback, don't hesitate
-        to reach out. Our team is ready to assist you.</p>
+	<h1>Contact Us</h1>
+	<p>
+		We're here to help! Whether you have questions, need support, or want to
+		share your feedback, don't hesitate to reach out. Our team is ready to
+		assist you.
+	</p>
 
-    <div class="contact-form">
-        <h2>Send us a message</h2>
-        <form id="contactForm">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <input type="text" name="subject" placeholder="Subject" required>
-            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-    </div>
+	<div class="contact-form">
+		<h2>Send us a message</h2>
+		<form
+			action="/ascii-art"
+			method="POST"
+		>
+			<label for="textInput">Enter text:</label>
+			<textarea
+				type="text"
+				id="textInput"
+				name="textInput"
+				placeholder="Type something"
+			></textarea>
+			<br />
 
-    <div class="contact-info">
-        <h2>Direct Contact</h2>
-        <p>Email: support@biasharaid.com</p>
-        <p>Phone: +254 792 281 871</p>
-        <p>Address: Zone01Kisumu (Lakehub), Kisumu, Kenya</p>
-    </div>
+			<label>Choose a font:</label>
+			<br />
+			<input
+				type="radio"
+				id="standard"
+				name="FileName"
+				value="standard"
+				checked
+			/>
+			<label for="standard">Standard</label>
 
-    <div class="developer-profiles">
-        <h2>Meet Our Team</h2>
-        <div class="developer-profile">
-            <img src="https://avatars.githubusercontent.com/u/42722945?v=4" alt="Developer Name 1">
-            <h3>Adioz Daniel</h3>
-            <p>Lead Blockchain Developer</p>
-            <p>Passionate about decentralized identity solutions.</p>
-            <a href="https://www.linkedin.com/in/Adioz" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <div class="developer-profile">
-            <img src="https://avatars.githubusercontent.com/u/163721517?v=4" alt="Developer Name 2">
-            <h3>Andy Osyndoh </h3>
-            <p>Full Stack Developer</p>
-            <p>Expert in creating seamless user experiences.</p>
-            <a href="https://www.linkedin.com/in/andyosyndoh" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <div class="developer-profile">
-            <img src="https://avatars.githubusercontent.com/u/162585009?v=4" alt="Developer Name 3">
-            <h3> Ouma Ouma </h3>
-            <p>Security Specialist</p>
-            <p>Ensures the highest level of data protection.</p>
-            <a href="https://www.linkedin.com/in/oumaouma" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <div class="developer-profile">
-            <img src="https://avatars.githubusercontent.com/u/77047643?v=4" alt="Developer Name 4">
-            <h3> Josephine Opondo</h3>
-            <p>UI/UX Designer</p>
-            <p>Creates intuitive and beautiful interfaces.</p>
-            <a href="https://www.linkedin.com/in/jossieopondo" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <div class="developer-profile">
-            <img src="https://learn.zone01kisumu.ke/git/avatars/6acb4b5c6cf5b91a9037f7002ef5b900?size=870"
-                alt="Kherld Hussein">
-            <h3>Khalid Hussein</h3>
-            <p>Product Manager</p>
-            <p>Drives the vision and strategy of BiasharaID.</p>
-            <a href="https://www.linkedin.com/in/kherldhussein" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-    </div>
+			<input
+				type="radio"
+				id="thinkertoy"
+				name="FileName"
+				value="thinkertoy"
+			/>
+			<label for="thinkertoy">Thinkertoy</label>
 
-    <div class="social-media">
-        <h2>Connect with Us</h2>
-        <a href="https://twitter.com/biasharaid" target="_blank"><i class="fab fa-twitter"></i></a>
-        <a href="https://facebook.com/biasharaid" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://linkedin.com/company/biasharaid" target="_blank"><i class="fab fa-linkedin"></i></a>
-    </div>
+			<input
+				type="radio"
+				id="shadow"
+				name="FileName"
+				value="shadow"
+			/>
+			<label for="shadow">Shadow</label>
+
+			<br />
+			<input
+				type="submit"
+				value="Submit"
+			/>
+		</form>
+	</div>
+
+	<div class="contact-info">
+		<h2>Direct Contact</h2>
+		<p>Email: support@biasharaid.com</p>
+		<p>Phone: +254 792 281 871</p>
+		<p>Address: Zone01Kisumu (Lakehub), Kisumu, Kenya</p>
+	</div>
+
+	<div class="developer-profiles">
+		<h2>Meet Our Team</h2>
+		<div class="developer-profile">
+			<img
+				src="https://avatars.githubusercontent.com/u/42722945?v=4"
+				alt="Developer Name 1"
+			/>
+			<h3>Adioz Daniel</h3>
+			<p>Lead Blockchain Developer</p>
+			<p>Passionate about decentralized identity solutions.</p>
+			<a
+				href="https://www.linkedin.com/in/Adioz"
+				target="_blank"
+				><i class="fab fa-linkedin"></i
+			></a>
+		</div>
+		<div class="developer-profile">
+			<img
+				src="https://avatars.githubusercontent.com/u/163721517?v=4"
+				alt="Developer Name 2"
+			/>
+			<h3>Andy Osyndoh</h3>
+			<p>Full Stack Developer</p>
+			<p>Expert in creating seamless user experiences.</p>
+			<a
+				href="https://www.linkedin.com/in/andyosyndoh"
+				target="_blank"
+				><i class="fab fa-linkedin"></i
+			></a>
+		</div>
+		<div class="developer-profile">
+			<img
+				src="https://avatars.githubusercontent.com/u/162585009?v=4"
+				alt="Developer Name 3"
+			/>
+			<h3>Ouma Ouma</h3>
+			<p>Security Specialist</p>
+			<p>Ensures the highest level of data protection.</p>
+			<a
+				href="https://www.linkedin.com/in/oumaouma"
+				target="_blank"
+				><i class="fab fa-linkedin"></i
+			></a>
+		</div>
+		<div class="developer-profile">
+			<img
+				src="https://avatars.githubusercontent.com/u/77047643?v=4"
+				alt="Developer Name 4"
+			/>
+			<h3>Josephine Opondo</h3>
+			<p>UI/UX Designer</p>
+			<p>Creates intuitive and beautiful interfaces.</p>
+			<a
+				href="https://www.linkedin.com/in/jossieopondo"
+				target="_blank"
+				><i class="fab fa-linkedin"></i
+			></a>
+		</div>
+		<div class="developer-profile">
+			<img
+				src="https://learn.zone01kisumu.ke/git/avatars/6acb4b5c6cf5b91a9037f7002ef5b900?size=870"
+				alt="Kherld Hussein"
+			/>
+			<h3>Khalid Hussein</h3>
+			<p>Product Manager</p>
+			<p>Drives the vision and strategy of BiasharaID.</p>
+			<a
+				href="https://www.linkedin.com/in/kherldhussein"
+				target="_blank"
+				><i class="fab fa-linkedin"></i
+			></a>
+		</div>
+	</div>
+
+	<div class="social-media">
+		<h2>Connect with Us</h2>
+		<a
+			href="https://twitter.com/biasharaid"
+			target="_blank"
+			><i class="fab fa-twitter"></i
+		></a>
+		<a
+			href="https://facebook.com/biasharaid"
+			target="_blank"
+			><i class="fab fa-facebook"></i
+		></a>
+		<a
+			href="https://linkedin.com/company/biasharaid"
+			target="_blank"
+			><i class="fab fa-linkedin"></i
+		></a>
+	</div>
 </div>
 {{end}}

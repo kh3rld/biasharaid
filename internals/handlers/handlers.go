@@ -27,6 +27,9 @@ func DummyHandler(w http.ResponseWriter, r *http.Request) {
 	renders.RenderTemplate(w, "dummy.page.html", resp)
 }
 func TestHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		renders.RenderTemplate(w, "test.page.html", nil)
+	}
 	nationalID := r.URL.Query().Get("national_id")
 	if nationalID == "" {
 		BadRequestHandler(w, r)
@@ -45,7 +48,7 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 		renders.RenderTemplate(w, "not_found.page.html", nil)
 		return
 	}
-	renders.RenderTemplate(w, "dummy.page.html", block)
+	renders.RenderTemplate(w, "test.page.html", block)
 }
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
