@@ -5,10 +5,10 @@
 />
 {{end}} {{define "content"}}
 <div class="container">
-	{{if .}}
+	{{if . block}}
 	<div class="card">
 		<div class="content">
-			<pre>{{.}}</pre>
+			<pre>{{. block}}</pre>
 		</div>
 	</div>
 	{{else}}
