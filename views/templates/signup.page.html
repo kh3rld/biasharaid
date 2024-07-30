@@ -30,13 +30,13 @@
 
             <div>
                 <label for="phone">Phone:</label>
-                <input type="text" id="phone" name="phone" required>
+                <input type="number" id="phone" name="phone" maxlength="10" required>
                 <div class="error" id="phoneError"></div>
             </div>
 
             <div>
                 <label for="national_id">National ID:</label>
-                <input type="text" id="national_id" name="national_id" required>
+                <input type="number" id="national_id" name="national_id" minlength="8" maxlength="8" required>
                 <div class="error" id="national_idError"></div>
             </div>
 
@@ -59,7 +59,7 @@
 
             <div>
                 <label for="businessValue">Business Value:</label>
-                <input type="text" id="businessValue" name="businessValue" required>
+                <input type="number" id="businessValue" name="businessValue" required>
                 <div class="error" id="businessValueError"></div>
             </div>
 
@@ -92,6 +92,8 @@
             <button type="submit" class="submit-btn">Submit Business Information</button>
         </form>
 
+        <div id="loading"></div>
+
         <div class="tips">
             <h3>Tips for Accurate Submission:</h3>
             <ul>
@@ -107,5 +109,13 @@
         </div>
     </section>
 </div>
+{{end}}
+{{define "script"}}
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function() {
+            // Show the loading icon when the form is submitted
+            document.getElementById('loading').style.display = 'block';
+        });
+    </script>
 
 {{end}}
