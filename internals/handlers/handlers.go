@@ -232,44 +232,68 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	case "POST":
 		var entrepreneur blockchain.Entrepreneur
-		if err := r.ParseForm(); err != nil {
+
+		// Parse the form data, including files
+		if err := r.ParseMultipartForm(10 << 20); err != nil { // 10MB limit for files
 			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
 			return
 		}
-		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
-		first_name := r.FormValue("firstName")
-		second_name := r.FormValue("secondName")
+		
+		// Extract form values
+		firstName := r.FormValue("firstname")
+		secondName := r.FormValue("secondname")
 		location := r.FormValue("location")
 		phone := r.FormValue("phone")
-		national_id := r.FormValue("national_id")
-		business_id := r.FormValue("business_id")
+		nationalID := r.FormValue("national_id")
+		businessID := r.FormValue("business_id")
 		status := r.FormValue("status")
-		business_value := r.FormValue("businessValue")
-		name := r.FormValue("businessName")
-		address := r.FormValue("businessaddress")
+		businessValueStr := r.FormValue("businessValue")
+		businessName := r.FormValue("businessName")
+		businessAddress := r.FormValue("businessaddress")
 
+		// Convert business value from string to appropriate type
+
+		// Create a Business struct
 		business := blockchain.Business{
-			BusinessID:    business_id,
+			BusinessID:    businessID,
 			Status:        status,
-			BusinessValue: business_value,
-			Name:          name,
-			Address:       address,
+			BusinessValue: businessValueStr,
+			Name:          businessName,
+			Address:       businessAddress,
 		}
 
-		// Create an instance of Entrepreneur
+		// Create an Entrepreneur struct
 		entrepreneur = blockchain.Entrepreneur{
-			FirstName:  first_name,
-			SecondName: second_name,
+			FirstName:  firstName,
+			SecondName: secondName,
 			Location:   location,
 			Business:   business,
 			Phone:      phone,
-			NationalID: national_id,
+			NationalID: nationalID,
 			IsGenesis:  false,
 		}
 
+		// Handle file upload
+		file, _, err := r.FormFile("certificate")
+		if err != nil {
+			http.Error(w, "Failed to retrieve file", http.StatusInternalServerError)
+			return
+		}
+		defer file.Close()
+
+		// Process the file if needed
+		// Example: Save the file to the server, check its type, etc.
+
+		// Add the entrepreneur to the blockchain
+		if blockchain.BlockchainInstance == nil {
+			http.Error(w, "Blockchain instance not initialized", http.StatusInternalServerError)
+			return
+		}
 		blockchain.BlockchainInstance.AddBlock(entrepreneur)
-		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
+
+		// Render the template
 		renders.RenderTemplate(w, "signup.page.html", nil)
+
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
