@@ -11,6 +11,7 @@ import (
 
 type FormData struct {
 	Body        string
+	Title       string
 	CurrentYear string
 }
 
