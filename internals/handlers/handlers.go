@@ -1,13 +1,18 @@
 package handlers
 
 import (
+	"context"
+	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 
+	vision "cloud.google.com/go/vision/apiv1"
 	"github.com/kh3rld/biasharaid/blockchain"
 	"github.com/kh3rld/biasharaid/internals/renders"
+	"google.golang.org/api/option"
 )
 
 var data renders.FormData
@@ -31,6 +36,40 @@ func Details(w http.ResponseWriter, r *http.Request) {
 func DummyHandler(w http.ResponseWriter, r *http.Request) {
 	resp := blockchain.BlockchainInstance.Blocks
 	renders.RenderTemplate(w, "dummy.page.html", resp)
+}
+
+func analyzeImage(imagePath string) {
+	ctx := context.Background()
+	client, err := vision.NewImageAnnotatorClient(ctx, option.WithCredentialsFile("path/to/your-service-account-key.json"))
+	if err != nil {
+		log.Fatalf("Failed to create client: %v", err)
+	}
+	defer client.Close()
+
+	// Read the image file
+	file, err := os.Open(imagePath)
+	if err != nil {
+		log.Fatalf("Failed to open file: %v", err)
+	}
+	defer file.Close()
+
+	// Create an Image object
+	image, err := vision.NewImageFromReader(file)
+	if err != nil {
+		log.Fatalf("Failed to create image: %v", err)
+	}
+
+	// Perform label detection on the image
+	response, err := client.DetectLabels(ctx, image, nil, 10)
+	if err != nil {
+		log.Fatalf("Failed to detect labels: %v", err)
+	}
+
+	// Print the labels
+	fmt.Println("Labels:")
+	for _, label := range response {
+		fmt.Printf("%s (confidence: %f)\n", label.Description, label.Score)
+	}
 }
 
 // UploadHandler handles file upload requests
