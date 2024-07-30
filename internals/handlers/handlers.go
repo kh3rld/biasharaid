@@ -29,6 +29,10 @@ func Contact(w http.ResponseWriter, r *http.Request) {
 	renders.RenderTemplate(w, "contact.page.html", nil)
 }
 
+func About(w http.ResponseWriter, r *http.Request) {
+	renders.RenderTemplate(w, "about.page.html", nil)
+}
+
 func Details(w http.ResponseWriter, r *http.Request) {
 
 }
