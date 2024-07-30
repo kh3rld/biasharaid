@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/kh3rld/biasharaid/blockchain"
@@ -79,34 +78,24 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		nationalID := r.FormValue("national_id")
+		first_name := r.FormValue("first_name")
+		second_name := r.FormValue("second_name")
+		location := r.FormValue("location")
+		phone := r.FormValue("phone")
+		national_id := r.FormValue("national_id")
+		business_id := r.FormValue("business_id")
+		status := r.FormValue("status")
+		business_value := r.FormValue("business_value")
+		name := r.FormValue("name")
+		address := r.FormValue("address")
 
-		if nationalID == "" {
-			BadRequestHandler(w, r)
-			return
-		}
-
-		var block *blockchain.Block
-		for _, b := range blockchain.BlockchainInstance.Blocks {
-			if b.Data.NationalID == nationalID {
-				block = b
-				break
-			}
-		}
-
-		if block == nil {
-			renders.RenderTemplate(w, "404.page.html", nil)
-			return
-		}
-
-		renders.RenderTemplate(w, "signup.page.html", block)
+		renders.RenderTemplate(w, "signup.page.html", nil)
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 }
 
 func Addpage(w http.ResponseWriter, r *http.Request) {
-	
 
 	renders.RenderTemplate(w, "signup.page.html", data)
 }
