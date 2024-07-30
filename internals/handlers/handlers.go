@@ -12,6 +12,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func Verification(w http.ResponseWriter, r *http.Request) {
+	renders.RenderTemplate(w, "verify.page.html", nil)
 }
 
 func Details(w http.ResponseWriter, r *http.Request) {
