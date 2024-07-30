@@ -69,7 +69,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func Add(w http.ResponseWriter, r *http.Request) {
-	renders.RenderTemplate(w, "add.page.html", nil)
+	renders.RenderTemplate(w, "signup.page.html", nil)
 }
 
 func Addpage(w http.ResponseWriter, r *http.Request) {
