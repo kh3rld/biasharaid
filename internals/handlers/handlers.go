@@ -19,7 +19,7 @@ func Details(w http.ResponseWriter, r *http.Request) {
 }
 
 func DummyHandler(w http.ResponseWriter, r *http.Request) {
-	resp := blockchain.Blockchain{}
+	resp := blockchain.BlockchainInstance
 	fmt.Println(resp)
 	renders.RenderTemplate(w, "dummy.page.html", resp)
 }

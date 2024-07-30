@@ -68,7 +68,7 @@ func (b *Block) ValidateHash(hash string) bool {
 
 // Blockchain defines the structure for the blockchain
 type Blockchain struct {
-	blocks []*Block
+	Blocks []*Block
 }
 
 // BlockchainInstance declares a global blockchain instance
