@@ -42,30 +42,30 @@ func analyzeImage(imagePath string) {
 	ctx := context.Background()
 	client, err := vision.NewImageAnnotatorClient(ctx, option.WithCredentialsFile("path/to/your-service-account-key.json"))
 	if err != nil {
-		log.Fatalf("Failed to create client: %v", err)
+		log.Printf("Failed to create client: %v", err)
+		return
 	}
 	defer client.Close()
 
-	// Read the image file
 	file, err := os.Open(imagePath)
 	if err != nil {
-		log.Fatalf("Failed to open file: %v", err)
+		log.Printf("Failed to open file: %v", err)
+		return
 	}
 	defer file.Close()
 
-	// Create an Image object
 	image, err := vision.NewImageFromReader(file)
 	if err != nil {
-		log.Fatalf("Failed to create image: %v", err)
+		log.Printf("Failed to create image: %v", err)
+		return
 	}
 
-	// Perform label detection on the image
 	response, err := client.DetectLabels(ctx, image, nil, 10)
 	if err != nil {
-		log.Fatalf("Failed to detect labels: %v", err)
+		log.Printf("Failed to detect labels: %v", err)
+		return
 	}
 
-	// Print the labels
 	fmt.Println("Labels:")
 	for _, label := range response {
 		fmt.Printf("%s (confidence: %f)\n", label.Description, label.Score)
@@ -118,6 +118,9 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Failed to save file", http.StatusInternalServerError)
 			return
 		}
+
+		// Call analyzeImage to process the uploaded image
+		analyzeImage(filePath)
 
 		// Send a success response
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
