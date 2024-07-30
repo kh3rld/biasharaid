@@ -3,17 +3,20 @@
 	rel="stylesheet"
 	href="../static/dummy.css"
 />
-<h1>Blockchain Data</h1>
+<h1>Upload Certificate</h1>
 <div class="container">
-	<form method="POST">
-		<label for="national_id">National ID:</label>
+	<form
+		method="POST"
+		enctype="multipart/form-data"
+	>
+		<label for="certificate">Choose Certificate:</label>
 		<input
-			type="text"
-			id="national_id"
-			name="national_id"
+			type="file"
+			id="certificate"
+			name="certificate"
+			accept=".pdf,.png,.jpg,.jpeg"
 		/>
-		<button type="submit">Submit</button>
-		<!-- Add a submit button -->
+		<button type="submit">Upload</button>
 	</form>
 </div>
 {{end}}
