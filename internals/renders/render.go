@@ -21,7 +21,10 @@ var functions = template.FuncMap{}
 
 // RenderTemplate is a helper function to render HTML templates
 func RenderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
-	t, _ := getTemplateCache()
+	t, er := getTemplateCache()
+	if er != nil {
+		http.Error(w, fmt.Sprintf("Error happend %v", er), http.StatusInternalServerError)
+	}
 	ts, ok := t[tmpl]
 	if !ok {
 		renderServerErrorTemplate(w, tmpl+" is missing, contact the Network Admin.")
@@ -110,7 +113,7 @@ func renderServerErrorTemplate(w http.ResponseWriter, errMsg string) {
 
 	t, err := template.New("error").Parse(tmpl)
 	if err != nil {
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Internal Server Error %v", err), http.StatusInternalServerError)
 	}
 
 	data := struct {
