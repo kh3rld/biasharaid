@@ -1,5 +1,8 @@
-<!DOCTYPE html>
+{{template "base" .}}
+{{define "css"}}
 		<link rel="stylesheet" href="../static/dummy.css">
+{{end}}
+{{define "content"}}
 		<h1>Blockchain Data</h1>
 		<div class="container">
 			<table id="blockchain-table">
@@ -27,5 +30,4 @@
 				</tbody>
 			</table>
 		</div>
-	</body>
-</html>
+{{end}}

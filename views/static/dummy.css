@@ -1,33 +1,14 @@
-body, html {
-	background-color: rgb(135, 138, 140);
-}
-.container {
-	background-color: #bdb4b4;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	padding: 20px;
-	width: 80%;
-	max-width: 1200px;
-	display: flex;
-}
 table {
 	width: 100%;
 	border-collapse: collapse;
 }
 th,
 td {
-	border: 1px solid #ddd;
+	border: 1px solid #e9cbcb;
 	padding: 12px;
 	text-align: left;
 }
 th {
-	background-color: #252e32;
-	color: rgb(228, 251, 83)
-}
-pre {
-	background-color: #586b73;
-	padding: 10px;
-	border-radius: 4px;
-	overflow: auto;
-	max-height: 200px;
+	background-color: #0066cc;
+	color: rgb(236, 236, 232)
 }
