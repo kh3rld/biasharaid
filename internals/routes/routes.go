@@ -16,6 +16,7 @@ var allowedRoutes = map[string]bool{
 	"/contact": true,
 	"/test":    true,
 	"/add":     true,
+	"/addpage": true,
 }
 
 func RegisterRoutes(mux *http.ServeMux) {
