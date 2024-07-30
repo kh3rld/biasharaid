@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 
 	vision "cloud.google.com/go/vision/apiv1"
 	"github.com/kh3rld/biasharaid/blockchain"
@@ -15,22 +16,39 @@ import (
 	"google.golang.org/api/option"
 )
 
-var data renders.FormData
+// var data renders.FormData
+var currentYear = time.Now().Format("2006")
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	renders.RenderTemplate(w, "home.page.html", nil)
+	data := renders.FormData{
+		CurrentYear: currentYear,
+		Title:       "Welcome to BiasharaID - Your Secure Blockchain Identity Verification",
+	}
+	renders.RenderTemplate(w, "home.page.html", &data)
 }
 
 func Verification(w http.ResponseWriter, r *http.Request) {
-	renders.RenderTemplate(w, "verify.page.html", nil)
+	data := renders.FormData{
+		CurrentYear: currentYear,
+		Title:       "Verify Your Identity - BiasharaID",
+	}
+	renders.RenderTemplate(w, "verify.page.html", &data)
 }
 
 func Contact(w http.ResponseWriter, r *http.Request) {
-	renders.RenderTemplate(w, "contact.page.html", nil)
+	data := renders.FormData{
+		CurrentYear: currentYear,
+		Title:       "Contact Us - BiasharaID",
+	}
+	renders.RenderTemplate(w, "contact.page.html", &data)
 }
 
 func About(w http.ResponseWriter, r *http.Request) {
-	renders.RenderTemplate(w, "about.page.html", nil)
+	data := renders.FormData{
+		CurrentYear: currentYear,
+		Title:       "About Us - BiasharaID",
+	}
+	renders.RenderTemplate(w, "about.page.html", &data)
 }
 
 func Details(w http.ResponseWriter, r *http.Request) {
@@ -130,7 +148,11 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		// Render the upload form
-		renders.RenderTemplate(w, "test.page.html", nil)
+		data := renders.FormData{
+			CurrentYear: currentYear,
+			Title:       "Upload Form  - BiasharaID",
+		}
+		renders.RenderTemplate(w, "test.page.html", &data)
 
 	case "POST":
 		// Parse the form to retrieve file
@@ -191,7 +213,11 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		renders.RenderTemplate(w, "verify.page.html", nil)
+		data := renders.FormData{
+			CurrentYear: currentYear,
+			Title:       "Verify - BiasharaID",
+		}
+		renders.RenderTemplate(w, "verify.page.html", &data)
 		return
 	case "POST":
 		if err := r.ParseForm(); err != nil {
@@ -202,7 +228,11 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 		nationalID := r.FormValue("national_id")
 
 		if nationalID == "" {
-			renders.RenderTemplate(w, "verify.page.html", nil)
+			data := renders.FormData{
+				CurrentYear: currentYear,
+				Title:       "Verify - BiasharaID",
+			}
+			renders.RenderTemplate(w, "verify.page.html", &data)
 			return
 		}
 
@@ -215,7 +245,11 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if block == nil {
-			renders.RenderTemplate(w, "notverified.page.html", nil)
+			data := renders.FormData{
+				CurrentYear: currentYear,
+				Title:       "Page Not Found - BiasharaID",
+			}
+			renders.RenderTemplate(w, "404.page.html", &data)
 			return
 		}
 
@@ -228,7 +262,10 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 func Add(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		renders.RenderTemplate(w, "signup.page.html", nil)
+		data := renders.FormData{
+			CurrentYear: currentYear,
+		}
+		renders.RenderTemplate(w, "signup.page.html", &data)
 		return
 	case "POST":
 		var entrepreneur blockchain.Entrepreneur
@@ -269,27 +306,48 @@ func Add(w http.ResponseWriter, r *http.Request) {
 
 		blockchain.BlockchainInstance.AddBlock(entrepreneur)
 		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
-		renders.RenderTemplate(w, "signup.page.html", nil)
+
+		data := renders.FormData{
+			CurrentYear: currentYear,
+			Title:       "SignUp - BiasharaID",
+		}
+		renders.RenderTemplate(w, "signup.page.html", &data)
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 }
 
 func Addpage(w http.ResponseWriter, r *http.Request) {
-
+	data := renders.FormData{
+		CurrentYear: currentYear,
+		Title:       "SignUp - BiasharaID",
+	}
 	renders.RenderTemplate(w, "signup.page.html", data)
 }
+
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
-	renders.RenderTemplate(w, "404.page.html", nil)
+	data := renders.FormData{
+		CurrentYear: currentYear,
+		Title:       "Not Found - BiasharaID",
+	}
+	renders.RenderTemplate(w, "404.page.html", &data)
 }
 
 func BadRequestHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusBadRequest)
-	renders.RenderTemplate(w, "400.page.html", nil)
+	data := renders.FormData{
+		CurrentYear: currentYear,
+		Title:       "Not Found - BiasharaID",
+	}
+	renders.RenderTemplate(w, "400.page.html", data)
 }
 
 func ServerErrorHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusInternalServerError)
-	renders.RenderTemplate(w, "500.page.html", nil)
+	data := renders.FormData{
+		CurrentYear: currentYear,
+		Title:       "Internal Server Error - BiasharaID",
+	}
+	renders.RenderTemplate(w, "500.page.html", &data)
 }
