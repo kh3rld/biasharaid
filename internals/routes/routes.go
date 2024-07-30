@@ -29,7 +29,7 @@ func RegisterRoutes(mux *http.ServeMux) {
 	})
 
 	mux.HandleFunc("/verify", func(w http.ResponseWriter, r *http.Request) {
-		handlers.Verification(w, r)
+		handlers.VerifyHandler(w, r)
 	})
 
 	mux.HandleFunc("/details", func(w http.ResponseWriter, r *http.Request) {
@@ -41,7 +41,7 @@ func RegisterRoutes(mux *http.ServeMux) {
 	})
 
 	mux.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
-		handlers.TestHandler(w, r)
+		handlers.DummyHandler(w, r)
 	})
 
 	mux.HandleFunc("/contact", func(w http.ResponseWriter, r *http.Request) {

@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/kh3rld/biasharaid/blockchain"
@@ -32,7 +31,7 @@ func DummyHandler(w http.ResponseWriter, r *http.Request) {
 	renders.RenderTemplate(w, "dummy.page.html", resp)
 }
 
-func TestHandler(w http.ResponseWriter, r *http.Request) {
+func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		renders.RenderTemplate(w, "test.page.html", nil)
@@ -57,7 +56,6 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 				break
 			}
 		}
-		fmt.Println(block)
 
 		if block == nil {
 			renders.RenderTemplate(w, "not_found.page.html", nil)
