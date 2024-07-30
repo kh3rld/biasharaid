@@ -10,7 +10,8 @@ import (
 )
 
 type FormData struct {
-	Body string
+	Body        string
+	CurrentYear string
 }
 
 // Data is a global variable to hold the form data
