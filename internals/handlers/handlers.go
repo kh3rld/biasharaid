@@ -215,7 +215,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if block == nil {
-			renders.RenderTemplate(w, "404.page.html", nil)
+			renders.RenderTemplate(w, "notverified.page.html", nil)
 			return
 		}
 
