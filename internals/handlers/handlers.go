@@ -69,26 +69,46 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func Add(w http.ResponseWriter, r *http.Request) {
-	renders.RenderTemplate(w, "signup.page.html", nil)
+	switch r.Method {
+	case "GET":
+		renders.RenderTemplate(w, "signup.page.html", nil)
+		return
+	case "POST":
+		if err := r.ParseForm(); err != nil {
+			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
+			return
+		}
+
+		nationalID := r.FormValue("national_id")
+
+		if nationalID == "" {
+			BadRequestHandler(w, r)
+			return
+		}
+
+		var block *blockchain.Block
+		for _, b := range blockchain.BlockchainInstance.Blocks {
+			if b.Data.NationalID == nationalID {
+				block = b
+				break
+			}
+		}
+
+		if block == nil {
+			renders.RenderTemplate(w, "404.page.html", nil)
+			return
+		}
+
+		renders.RenderTemplate(w, "signup.page.html", block)
+	default:
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
 }
 
 func Addpage(w http.ResponseWriter, r *http.Request) {
-	var entrepreneur blockchain.Entrepreneur
-	if err := json.NewDecoder(r.Body).Decode(&entrepreneur); err != nil {
-		http.Error(w, "Invalid request payload: "+err.Error(), http.StatusBadRequest)
-		return
-	}
+	
 
-	if entrepreneur.FirstName == "" || entrepreneur.SecondName == "" {
-		http.Error(w, "Missing required fields", http.StatusBadRequest)
-		return
-	}
-
-	blockchain.BlockchainInstance.AddBlock(entrepreneur)
-	w.WriteHeader(http.StatusOK)
-	data.Body = "Data Added succesfull"
-
-	renders.RenderTemplate(w, "add.page.html", data)
+	renders.RenderTemplate(w, "signup.page.html", data)
 }
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
