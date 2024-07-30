@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"time"
 
 	vision "cloud.google.com/go/vision/apiv1"
 	"github.com/kh3rld/biasharaid/blockchain"
@@ -16,39 +15,22 @@ import (
 	"google.golang.org/api/option"
 )
 
-// var data renders.FormData
-var currentYear = time.Now().Format("2006")
+var data renders.FormData
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Welcome to BiasharaID - Your Secure Blockchain Identity Verification",
-	}
-	renders.RenderTemplate(w, "home.page.html", &data)
+	renders.RenderTemplate(w, "home.page.html", nil)
 }
 
 func Verification(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Verify Your Identity - BiasharaID",
-	}
-	renders.RenderTemplate(w, "verify.page.html", &data)
+	renders.RenderTemplate(w, "verify.page.html", nil)
 }
 
 func Contact(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Contact Us - BiasharaID",
-	}
-	renders.RenderTemplate(w, "contact.page.html", &data)
+	renders.RenderTemplate(w, "contact.page.html", nil)
 }
 
 func About(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "About Us - BiasharaID",
-	}
-	renders.RenderTemplate(w, "about.page.html", &data)
+	renders.RenderTemplate(w, "about.page.html", nil)
 }
 
 func Details(w http.ResponseWriter, r *http.Request) {
@@ -148,11 +130,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		// Render the upload form
-		data := renders.FormData{
-			CurrentYear: currentYear,
-			Title:       "Upload Form  - BiasharaID",
-		}
-		renders.RenderTemplate(w, "test.page.html", &data)
+		renders.RenderTemplate(w, "test.page.html", nil)
 
 	case "POST":
 		// Parse the form to retrieve file
@@ -213,11 +191,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		data := renders.FormData{
-			CurrentYear: currentYear,
-			Title:       "Verify - BiasharaID",
-		}
-		renders.RenderTemplate(w, "verify.page.html", &data)
+		renders.RenderTemplate(w, "verify.page.html", nil)
 		return
 	case "POST":
 		if err := r.ParseForm(); err != nil {
@@ -228,11 +202,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 		nationalID := r.FormValue("national_id")
 
 		if nationalID == "" {
-			data := renders.FormData{
-				CurrentYear: currentYear,
-				Title:       "Verify - BiasharaID",
-			}
-			renders.RenderTemplate(w, "verify.page.html", &data)
+			renders.RenderTemplate(w, "verify.page.html", nil)
 			return
 		}
 
@@ -245,11 +215,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if block == nil {
-			data := renders.FormData{
-				CurrentYear: currentYear,
-				Title:       "Page Not Found - BiasharaID",
-			}
-			renders.RenderTemplate(w, "404.page.html", &data)
+			renders.RenderTemplate(w, "notverified.page.html", nil)
 			return
 		}
 
@@ -262,92 +228,92 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 func Add(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		data := renders.FormData{
-			CurrentYear: currentYear,
-		}
-		renders.RenderTemplate(w, "signup.page.html", &data)
+		renders.RenderTemplate(w, "signup.page.html", nil)
 		return
 	case "POST":
 		var entrepreneur blockchain.Entrepreneur
-		if err := r.ParseForm(); err != nil {
+
+		// Parse the form data, including files
+		if err := r.ParseMultipartForm(10 << 20); err != nil { // 10MB limit for files
 			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
 			return
 		}
-		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
-		first_name := r.FormValue("firstName")
-		second_name := r.FormValue("secondName")
+		
+		// Extract form values
+		firstName := r.FormValue("firstname")
+		secondName := r.FormValue("secondname")
 		location := r.FormValue("location")
 		phone := r.FormValue("phone")
-		national_id := r.FormValue("national_id")
-		business_id := r.FormValue("business_id")
+		nationalID := r.FormValue("national_id")
+		businessID := r.FormValue("business_id")
 		status := r.FormValue("status")
-		business_value := r.FormValue("businessValue")
-		name := r.FormValue("businessName")
-		address := r.FormValue("businessaddress")
+		businessValueStr := r.FormValue("businessValue")
+		businessName := r.FormValue("businessName")
+		businessAddress := r.FormValue("businessaddress")
 
+		// Convert business value from string to appropriate type
+
+		// Create a Business struct
 		business := blockchain.Business{
-			BusinessID:    business_id,
+			BusinessID:    businessID,
 			Status:        status,
-			BusinessValue: business_value,
-			Name:          name,
-			Address:       address,
+			BusinessValue: businessValueStr,
+			Name:          businessName,
+			Address:       businessAddress,
 		}
 
-		// Create an instance of Entrepreneur
+		// Create an Entrepreneur struct
 		entrepreneur = blockchain.Entrepreneur{
-			FirstName:  first_name,
-			SecondName: second_name,
+			FirstName:  firstName,
+			SecondName: secondName,
 			Location:   location,
 			Business:   business,
 			Phone:      phone,
-			NationalID: national_id,
+			NationalID: nationalID,
 			IsGenesis:  false,
 		}
 
-		blockchain.BlockchainInstance.AddBlock(entrepreneur)
-		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
-
-		data := renders.FormData{
-			CurrentYear: currentYear,
-			Title:       "SignUp - BiasharaID",
+		// Handle file upload
+		file, _, err := r.FormFile("certificate")
+		if err != nil {
+			http.Error(w, "Failed to retrieve file", http.StatusInternalServerError)
+			return
 		}
-		renders.RenderTemplate(w, "signup.page.html", &data)
+		defer file.Close()
+
+		// Process the file if needed
+		// Example: Save the file to the server, check its type, etc.
+
+		// Add the entrepreneur to the blockchain
+		if blockchain.BlockchainInstance == nil {
+			http.Error(w, "Blockchain instance not initialized", http.StatusInternalServerError)
+			return
+		}
+		blockchain.BlockchainInstance.AddBlock(entrepreneur)
+
+		// Render the template
+		renders.RenderTemplate(w, "signup.page.html", nil)
+
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 }
 
 func Addpage(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "SignUp - BiasharaID",
-	}
+
 	renders.RenderTemplate(w, "signup.page.html", data)
 }
-
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Not Found - BiasharaID",
-	}
-	renders.RenderTemplate(w, "404.page.html", &data)
+	renders.RenderTemplate(w, "404.page.html", nil)
 }
 
 func BadRequestHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusBadRequest)
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Not Found - BiasharaID",
-	}
-	renders.RenderTemplate(w, "400.page.html", data)
+	renders.RenderTemplate(w, "400.page.html", nil)
 }
 
 func ServerErrorHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusInternalServerError)
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Internal Server Error - BiasharaID",
-	}
-	renders.RenderTemplate(w, "500.page.html", &data)
+	renders.RenderTemplate(w, "500.page.html", nil)
 }
