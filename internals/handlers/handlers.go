@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"io"
 	"net/http"
+	"os"
 
 	"github.com/kh3rld/biasharaid/blockchain"
 	"github.com/kh3rld/biasharaid/internals/renders"
@@ -28,6 +30,56 @@ func Details(w http.ResponseWriter, r *http.Request) {
 func DummyHandler(w http.ResponseWriter, r *http.Request) {
 	resp := blockchain.BlockchainInstance.Blocks
 	renders.RenderTemplate(w, "dummy.page.html", resp)
+}
+func UploadHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		// Render the upload form
+		renders.RenderTemplate(w, "upload.page.html", nil)
+
+	case "POST":
+		// Parse the form to retrieve file
+		err := r.ParseMultipartForm(10 << 20) // 10 MB limit
+		if err != nil {
+			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
+			return
+		}
+
+		// Retrieve the file from the form
+		file, _, err := r.FormFile("certificate")
+		if err != nil {
+			http.Error(w, "Failed to retrieve file", http.StatusInternalServerError)
+			return
+		}
+		defer file.Close()
+
+		// Process the file (e.g., save it to disk or handle it as needed)
+		// Example: Save the file to a local directory
+		outFile, err := os.Create("./uploads/uploaded_certificate")
+		if err != nil {
+			http.Error(w, "Failed to create file", http.StatusInternalServerError)
+			return
+		}
+		defer outFile.Close()
+
+		// Copy the uploaded file content to the new file
+		_, err = io.Copy(outFile, file)
+		if err != nil {
+			http.Error(w, "Failed to save file", http.StatusInternalServerError)
+			return
+		}
+
+		// Send a success response
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		w.WriteHeader(http.StatusOK)
+		_, err = w.Write([]byte("File uploaded successfully"))
+		if err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+		}
+
+	default:
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
 }
 
 func VerifyHandler(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +131,6 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		
 		first_name := r.FormValue("first_name")
 		second_name := r.FormValue("second_name")
 		location := r.FormValue("location")
@@ -98,9 +149,9 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			Name:          name,
 			Address:       address,
 		}
-	
+
 		// Create an instance of Entrepreneur
-		entrepreneur = blockchain.Entrepreneur {
+		entrepreneur = blockchain.Entrepreneur{
 			FirstName:  first_name,
 			SecondName: second_name,
 			Location:   location,
@@ -111,8 +162,6 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		}
 
 		blockchain.BlockchainInstance.AddBlock(entrepreneur)
-
-		
 
 		renders.RenderTemplate(w, "signup.page.html", nil)
 	default:
