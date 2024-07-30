@@ -75,7 +75,7 @@ func getTemplateCache() (map[string]*template.Template, error) {
 func GetProjectRoot(first, second string) string {
 	cwd, _ := os.Getwd()
 	baseDir := cwd
-	if strings.HasSuffix(baseDir, "cmd") {
+	if strings.HasSuffix(baseDir, "web") {
 		baseDir = filepath.Join(cwd, "../")
 	}
 	return filepath.Join(baseDir, first, second)
@@ -97,7 +97,7 @@ func renderServerErrorTemplate(w http.ResponseWriter, errMsg string) {
 </head>
 <body>
 	<div class="container">
-		<h1>404 Oops We can't find what you are looking for! 🙁</h1>
+		<h1>500 Oops We can't find what you are looking for! 🙁</h1>
 		<h2>Something went wrong.</h2>
 		<h3>{{.Error}}</h3>
 		<a href="/" title="Go back to the home page" class="btn">
@@ -119,6 +119,6 @@ func renderServerErrorTemplate(w http.ResponseWriter, errMsg string) {
 	}
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	w.WriteHeader(http.StatusNotFound)
+	w.WriteHeader(http.StatusInternalServerError)
 	t.Execute(w, data)
 }
