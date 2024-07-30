@@ -1,19 +1,19 @@
 package handlers
 
 import (
-	"context"
+	"bytes"
 	"fmt"
 	"io"
 	"log"
+	"mime/multipart"
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
-	vision "cloud.google.com/go/vision/apiv1"
 	"github.com/kh3rld/biasharaid/blockchain"
 	"github.com/kh3rld/biasharaid/internals/renders"
-	"google.golang.org/api/option"
 )
 
 // var data renders.FormData
@@ -94,7 +94,7 @@ func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Call analyzeImage to process the temporary image
-		analyzeImage(tempFilePath)
+		analyzeImageWithOCRSpace(tempFilePath)
 
 		// Send a success response
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
@@ -109,14 +109,9 @@ func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func analyzeImage(imagePath string) {
-	ctx := context.Background()
-	client, err := vision.NewImageAnnotatorClient(ctx, option.WithCredentialsFile("path/to/your-service-account-key.json"))
-	if err != nil {
-		log.Printf("Failed to create client: %v", err)
-		return
-	}
-	defer client.Close()
+func analyzeImageWithOCRSpace(imagePath string) {
+	apiKey := "K84026493788957"
+	url := "https://api.ocr.space/parse/image"
 
 	file, err := os.Open(imagePath)
 	if err != nil {
@@ -125,22 +120,60 @@ func analyzeImage(imagePath string) {
 	}
 	defer file.Close()
 
-	image, err := vision.NewImageFromReader(file)
+	fileInfo, _ := file.Stat()
+	fileName := fileInfo.Name()
+
+	// Create a new buffer to hold the multipart form data
+	var requestBody bytes.Buffer
+	writer := multipart.NewWriter(&requestBody)
+
+	// Create a form file field and copy the file content to it
+	formFile, err := writer.CreateFormFile("file", fileName)
 	if err != nil {
-		log.Printf("Failed to create image: %v", err)
+		log.Printf("Failed to create form file field: %v", err)
 		return
 	}
 
-	response, err := client.DetectLabels(ctx, image, nil, 10)
-	if err != nil {
-		log.Printf("Failed to detect labels: %v", err)
+	if _, err := io.Copy(formFile, file); err != nil {
+		log.Printf("Failed to copy file content: %v", err)
 		return
 	}
 
-	fmt.Println("Labels:")
-	for _, label := range response {
-		fmt.Printf("%s (confidence: %f)\n", label.Description, label.Score)
+	// Close the writer to finalize the multipart form data
+	writer.Close()
+
+	req, err := http.NewRequest("POST", url, &requestBody)
+	if err != nil {
+		log.Printf("Failed to create request: %v", err)
+		return
 	}
+
+	req.Header.Set("apikey", apiKey)
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Printf("Failed to send request: %v", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	responseBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Printf("Failed to read response body: %v", err)
+		return
+	}
+	ProcessImageText(string(responseBody))
+}
+
+func ProcessImageText(resp string) string {
+	var res string
+
+	for _, field := range strings.Split(resp, "\\r\\n") {
+		fmt.Println(field)
+	}
+	return res
 }
 
 // UploadHandler handles file upload requests
@@ -179,7 +212,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create a file in the upload directory with a .jpeg extension
-		filePath := filepath.Join(uploadDir, "uploaded_nationalID.jpeg")
+		filePath := filepath.Join(uploadDir, "uploaded_nationalID.jpg")
 		outFile, err := os.Create(filePath)
 		if err != nil {
 			http.Error(w, "Failed to create file", http.StatusInternalServerError)
@@ -195,7 +228,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Call analyzeImage to process the uploaded image
-		analyzeImage(filePath)
+		analyzeImageWithOCRSpace(filePath)
 
 		// Send a success response
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
