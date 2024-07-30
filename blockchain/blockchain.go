@@ -31,11 +31,13 @@ type Business struct {
 
 // Block defines the structure for the blockchain node
 type Block struct {
-	Pos       int
-	Data      Entrepreneur
-	Timestamp string
-	Hash      string
-	PrevHash  string
+	Pos        int
+	Data       Entrepreneur
+	Timestamp  string
+	Hash       string
+	PrevHash   string
+	Nonce      int
+	Difficulty int
 }
 
 // CreateBlock creates a new block with the given data and previous hash
