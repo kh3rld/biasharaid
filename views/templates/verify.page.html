@@ -5,7 +5,11 @@
 {{define "content"}}
 	<div class="container">
 		{{if .}}
-		<pre>{{.}}</pre>
+		<div class="card">
+			<div class="content">
+				<pre>{{.}}</pre>
+			</div>
+		  </div>
 		{{else}}
 		<section class="form-section">
 			<h1>Enter Your National ID </h1>
