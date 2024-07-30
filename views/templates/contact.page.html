@@ -13,51 +13,32 @@
 
 	<div class="contact-form">
 		<h2>Send us a message</h2>
-		<form
-			action="/ascii-art"
-			method="POST"
-		>
-			<label for="textInput">Enter text:</label>
-			<textarea
+		<form id="contactForm">
+			<input
 				type="text"
-				id="textInput"
-				name="textInput"
-				placeholder="Type something"
+				name="name"
+				placeholder="Your Name"
+				required
+			/>
+			<input
+				type="email"
+				name="email"
+				placeholder="Your Email"
+				required
+			/>
+			<input
+				type="text"
+				name="subject"
+				placeholder="Subject"
+				required
+			/>
+			<textarea
+				name="message"
+				placeholder="Your Message"
+				rows="5"
+				required
 			></textarea>
-			<br />
-
-			<label>Choose a font:</label>
-			<br />
-			<input
-				type="radio"
-				id="standard"
-				name="FileName"
-				value="standard"
-				checked
-			/>
-			<label for="standard">Standard</label>
-
-			<input
-				type="radio"
-				id="thinkertoy"
-				name="FileName"
-				value="thinkertoy"
-			/>
-			<label for="thinkertoy">Thinkertoy</label>
-
-			<input
-				type="radio"
-				id="shadow"
-				name="FileName"
-				value="shadow"
-			/>
-			<label for="shadow">Shadow</label>
-
-			<br />
-			<input
-				type="submit"
-				value="Submit"
-			/>
+			<button type="submit">Send Message</button>
 		</form>
 	</div>
 

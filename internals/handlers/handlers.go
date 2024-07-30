@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/kh3rld/biasharaid/blockchain"
@@ -31,8 +32,10 @@ func DummyHandler(w http.ResponseWriter, r *http.Request) {
 func TestHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		renders.RenderTemplate(w, "test.page.html", nil)
+		return
 	}
 	nationalID := r.URL.Query().Get("national_id")
+	fmt.Println("National ID:", r)
 	if nationalID == "" {
 		BadRequestHandler(w, r)
 		return

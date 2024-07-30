@@ -43,10 +43,6 @@ func RegisterRoutes(mux *http.ServeMux) {
 		handlers.TestHandler(w, r)
 	})
 
-	mux.HandleFunc("/POST", func(w http.ResponseWriter, r *http.Request) {
-		handlers.TestHandler(w, r)
-	})
-
 	mux.HandleFunc("/contact", func(w http.ResponseWriter, r *http.Request) {
 		handlers.Contact(w, r)
 	})
