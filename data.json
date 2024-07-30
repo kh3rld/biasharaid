@@ -8,7 +8,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "omosh enterprises",
-			"address": "123, 50200, kisumu"
+			"address": "123, 50200, mombasa"
 		},
 		"phone": "254712345678",
 		"national_id": "38448752"
@@ -22,7 +22,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "doe enterprises",
-			"address": "124, 50201, kisumu"
+			"address": "124, 50201, eldoret"
 		},
 		"phone": "254712345679",
 		"national_id": "38448753"
@@ -36,7 +36,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "smith enterprises",
-			"address": "125, 50202, kisumu"
+			"address": "125, 50202, kakamega"
 		},
 		"phone": "254712345680",
 		"national_id": "38448754"
@@ -50,7 +50,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "johnson traders",
-			"address": "126, 50203, kisumu"
+			"address": "126, 50203, mumias"
 		},
 		"phone": "254712345681",
 		"national_id": "38448755"
@@ -64,7 +64,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "brown solutions",
-			"address": "127, 50204, kisumu"
+			"address": "127, 50204, bungoma"
 		},
 		"phone": "254712345682",
 		"national_id": "38448756"
@@ -78,7 +78,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "williams supplies",
-			"address": "128, 50205, kisumu"
+			"address": "128, 50205, butere"
 		},
 		"phone": "254712345683",
 		"national_id": "38448757"
@@ -92,7 +92,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "jones ventures",
-			"address": "129, 50206, kisumu"
+			"address": "129, 50206, kitale"
 		},
 		"phone": "254712345684",
 		"national_id": "38448758"
@@ -106,7 +106,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "miller enterprises",
-			"address": "130, 50207, kisumu"
+			"address": "130, 50207, nakuru"
 		},
 		"phone": "254712345685",
 		"national_id": "38448759"
@@ -120,7 +120,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "wilson holdings",
-			"address": "131, 50208, kisumu"
+			"address": "131, 50208, nyeri"
 		},
 		"phone": "254712345686",
 		"national_id": "38448760"
@@ -134,7 +134,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "moore trading",
-			"address": "132, 50209, kisumu"
+			"address": "132, 50209, kericho"
 		},
 		"phone": "254712345687",
 		"national_id": "38448761"
@@ -148,7 +148,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "taylor industries",
-			"address": "133, 50210, kisumu"
+			"address": "133, 50210, kitui"
 		},
 		"phone": "254712345688",
 		"national_id": "38448762"
@@ -162,7 +162,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "anderson supplies",
-			"address": "134, 50211, kisumu"
+			"address": "134, 50211, kibwezi"
 		},
 		"phone": "254712345689",
 		"national_id": "38448763"
@@ -176,7 +176,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "thomas enterprises",
-			"address": "135, 50212, kisumu"
+			"address": "135, 50212, kisii"
 		},
 		"phone": "254712345690",
 		"national_id": "38448764"
@@ -190,7 +190,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "jackson ventures",
-			"address": "136, 50213, kisumu"
+			"address": "136, 50213, busia"
 		},
 		"phone": "254712345691",
 		"national_id": "38448765"
@@ -204,7 +204,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "white solutions",
-			"address": "137, 50214, kisumu"
+			"address": "137, 50214, kitengela"
 		},
 		"phone": "254712345692",
 		"national_id": "38448766"
@@ -218,7 +218,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "harris trading",
-			"address": "138, 50215, kisumu"
+			"address": "138, 50215, soikimau"
 		},
 		"phone": "254712345693",
 		"national_id": "38448767"
@@ -232,7 +232,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "martin holdings",
-			"address": "139, 50216, kisumu"
+			"address": "139, 50216, embu"
 		},
 		"phone": "254712345694",
 		"national_id": "38448768"
@@ -246,7 +246,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "lee enterprises",
-			"address": "140, 50217, kisumu"
+			"address": "140, 50217, kibwezi"
 		},
 		"phone": "254712345695",
 		"national_id": "38448769"
@@ -260,7 +260,7 @@
 			"status": "active",
 			"business_value": "100000",
 			"name": "walker industries",
-			"address": "141, 50218, kisumu"
+			"address": "141, 50218, lodwar"
 		},
 		"phone": "254745645695",
 		"national_id": "39048761"
