@@ -26,6 +26,10 @@ func DummyHandler(w http.ResponseWriter, r *http.Request) {
 	resp := blockchain.BlockchainInstance.Blocks
 	renders.RenderTemplate(w, "dummy.page.html", resp)
 }
+func TestHandler(w http.ResponseWriter, r *http.Request) {
+	resp := blockchain.BlockchainInstance.Blocks
+	renders.RenderTemplate(w, "dummy.page.html", resp)
+}
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)

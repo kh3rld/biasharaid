@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+		<link rel="stylesheet" href="../static/dummy.css">
+		<h1>Blockchain Data</h1>
+		<div class="container">
+			<table id="blockchain-table">
+				<thead>
+					<tr>
+						<th>Position</th>
+						<th>Timestamp</th>
+						<th>Previous Hash</th>
+						<th>Hash</th>
+						<th>Data</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{range .}}
+					<tr>
+						<td>{{.Pos}}</td>
+						<td>{{.Timestamp}}</td>
+						<td>{{.PrevHash}}</td>
+						<td>{{.Hash}}</td>
+						<td>
+							<pre>{{ .Data}}</pre>
+						</td>
+					</tr>
+					{{end}}
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
