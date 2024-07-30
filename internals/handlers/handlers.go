@@ -1,12 +1,15 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/kh3rld/biasharaid/blockchain"
 	"github.com/kh3rld/biasharaid/internals/renders"
 )
+
+var data renders.FormData
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	renders.RenderTemplate(w, "home.page.html", nil)
@@ -71,6 +74,24 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	renders.RenderTemplate(w, "add.page.html", nil)
 }
 
+func Addpage(w http.ResponseWriter, r *http.Request) {
+	var entrepreneur blockchain.Entrepreneur
+	if err := json.NewDecoder(r.Body).Decode(&entrepreneur); err != nil {
+		http.Error(w, "Invalid request payload: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if entrepreneur.FirstName == "" || entrepreneur.SecondName == "" {
+		http.Error(w, "Missing required fields", http.StatusBadRequest)
+		return
+	}
+
+	blockchain.BlockchainInstance.AddBlock(entrepreneur)
+	w.WriteHeader(http.StatusOK)
+	data.Body = "Data Added succesfull"
+
+	renders.RenderTemplate(w, "add.page.html", data)
+}
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 	renders.RenderTemplate(w, "404.page.html", nil)
