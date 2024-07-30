@@ -110,7 +110,7 @@ func renderServerErrorTemplate(w http.ResponseWriter, errMsg string) {
 
 	t, err := template.New("error").Parse(tmpl)
 	if err != nil {
-		http.Error(w, "Not Found", http.StatusNotFound)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 
 	data := struct {
@@ -120,6 +120,5 @@ func renderServerErrorTemplate(w http.ResponseWriter, errMsg string) {
 	}
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	w.WriteHeader(http.StatusInternalServerError)
 	t.Execute(w, data)
 }
