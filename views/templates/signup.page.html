@@ -1,111 +1,200 @@
-{{template "base" .}}
-{{define "css"}}
-<link rel="stylesheet" href="../static/add.css">
-{{end}}
-{{define "content"}}
+{{template "base" .}} {{define "css"}}
+<link
+	rel="stylesheet"
+	href="../static/add.css"
+/>
+{{end}} {{define "content"}}
 <!-- <h1>Add Entrepreneur </h1> -->
 <div class="container">
-    <section class="form-section">
-        <h1>Entrepreneur Information</h1>
-        <form
-        id="businessIdForm"
-        method="POST">
-            <div>
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstname" required>
-                <div class="error" id="firstNameError"></div>
-            </div>
+	<section class="form-section">
+		<h1>Entrepreneur Information</h1>
+		<form
+			id="businessForm"
+			method="POST"
+			enctype="multipart/form-data"
+			action="/verify"
+		>
+			<div>
+				<label for="firstName">First Name:</label>
+				<input
+					type="text"
+					id="firstName"
+					name="firstname"
+					required
+				/>
+				<div
+					class="error"
+					id="firstNameError"
+				></div>
+			</div>
 
-            <div>
-                <label for="secondName">Second Name:</label>
-                <input type="text" id="secondName" name="secondname" required>
-                <div class="error" id="secondNameError"></div>
-            </div>
+			<div>
+				<label for="secondName">Second Name:</label>
+				<input
+					type="text"
+					id="secondName"
+					name="secondname"
+					required
+				/>
+				<div
+					class="error"
+					id="secondNameError"
+				></div>
+			</div>
 
-            <div>
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" required>
-                <div class="error" id="locationError"></div>
-            </div>
+			<div>
+				<label for="location">Location:</label>
+				<input
+					type="text"
+					id="location"
+					name="location"
+					required
+				/>
+				<div
+					class="error"
+					id="locationError"
+				></div>
+			</div>
 
-            <div>
-                <label for="phone">Phone:</label>
-                <input type="text" id="phone" name="phone" required>
-                <div class="error" id="phoneError"></div>
-            </div>
+			<div>
+				<label for="phone">Phone:</label>
+				<input
+					type="text"
+					id="phone"
+					name="phone"
+					required
+				/>
+				<div
+					class="error"
+					id="phoneError"
+				></div>
+			</div>
 
-            <div>
-                <label for="national_id">National ID:</label>
-                <input type="text" id="national_id" name="national_id" required>
-                <div class="error" id="national_idError"></div>
-            </div>
+			<div>
+				<label for="national_id">National ID:</label>
+				<input
+					type="text"
+					id="national_id"
+					name="national_id"
+					required
+				/>
+				<div
+					class="error"
+					id="national_idError"
+				></div>
+			</div>
 
-            <h1>Business Information</h1>
+			<h1>Business Information</h1>
 
-            <div>
-                <label for="businessId">Business ID:</label>
-                <input type="text" id="business_id" name="business_id" required>
-                <div class="error" id="businessIdError"></div>
-            </div>
+			<div>
+				<label for="businessId">Business ID:</label>
+				<input
+					type="text"
+					id="business_id"
+					name="business_id"
+					required
+				/>
+				<div
+					class="error"
+					id="businessIdError"
+				></div>
+			</div>
 
-            <div>
-                <label for="status">Status:</label>
-                <select id="status" name="status" required>
-                    <option value="">Select status</option>
-                    <option value="active">active</option>
-                    <option value="inactive">inactive</option>
-                </select>
-            </div>
+			<div>
+				<label for="status">Status:</label>
+				<select
+					id="status"
+					name="status"
+					required
+				>
+					<option value="">Select status</option>
+					<option value="active">Active</option>
+					<option value="inactive">Inactive</option>
+				</select>
+			</div>
 
-            <div>
-                <label for="businessValue">Business Value:</label>
-                <input type="text" id="businessValue" name="businessValue" required>
-                <div class="error" id="businessValueError"></div>
-            </div>
+			<div>
+				<label for="businessValue">Business Value:</label>
+				<input
+					type="text"
+					id="businessValue"
+					name="businessValue"
+					required
+				/>
+				<div
+					class="error"
+					id="businessValueError"
+				></div>
+			</div>
 
-            <div>
-                <label for="businessName">Business Name:</label>
-                <input type="text" id="businessName" name="businessName" required>
-                <div class="error" id="businessNameError"></div>
-            </div>
+			<div>
+				<label for="businessName">Business Name:</label>
+				<input
+					type="text"
+					id="businessName"
+					name="businessName"
+					required
+				/>
+				<div
+					class="error"
+					id="businessNameError"
+				></div>
+			</div>
 
-            <div>
-                <label for="businessaddress">Business Address:</label>
-                <input type="text" id="businessaddress" name="businessaddress" required>
-                <div class="error" id="businessAddressError"></div>
-            </div>
+			<div>
+				<label for="businessaddress">Business Address:</label>
+				<input
+					type="text"
+					id="businessaddress"
+					name="businessaddress"
+					required
+				/>
+				<div
+					class="error"
+					id="businessAddressError"
+				></div>
+			</div>
 
-            <form
-            method="POST"
-            enctype="multipart/form-data"
-        >
-            <label for="certificate">Choose Certificate:</label>
-            <input
-                type="file"
-                id="certificate"
-                name="certificate"
-                accept=".pdf,.png,.jpg,.jpeg"
-            />
-            <button type="submit">Upload</button>
-        </form>
+			<div>
+				<label for="certificate">Choose Certificate:</label>
+				<input
+					type="file"
+					id="certificate"
+					name="certificate"
+					accept=".pdf,.png,.jpg,.jpeg"
+				/>
+			</div>
 
-            <button type="submit" class="submit-btn">Submit Business Information</button>
-        </form>
+			<button
+				type="submit"
+				class="submit-btn"
+			>
+				Submit Business Information
+			</button>
+		</form>
+		<div class="tips">
+			<h3>Tips for Accurate Submission:</h3>
+			<ul>
+				<li>
+					Ensure your Personal and Business ID match the one on your official
+					registration documents.
+				</li>
+				<li>
+					Double-check all entered information for accuracy before submission.
+				</li>
+				<li>
+					Upload clear, legible scans or photos of your business registration
+					certificate.
+				</li>
+				<li>Accepted file formats: PDF, JPG, PNG (Max file size: 5MB)</li>
+			</ul>
+		</div>
 
-        <div class="tips">
-            <h3>Tips for Accurate Submission:</h3>
-            <ul>
-                <li>Ensure your Personal and Business ID match the one on your official registration documents.</li>
-                <li>Double-check all entered information for accuracy before submission.</li>
-                <li>Upload clear, legible scans or photos of your business registration certificate.</li>
-                <li>Accepted file formats: PDF, JPG, PNG (Max file size: 5MB)</li>
-            </ul>
-        </div>
-
-        <div id="confirmationMessage">
-            Your business information has been successfully submitted for verification.
-        </div>
-    </section>
+		<div id="confirmationMessage">
+			Your business information has been successfully submitted for
+			verification.
+		</div>
+	</section>
 </div>
 
 {{end}}
