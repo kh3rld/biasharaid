@@ -198,7 +198,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 		nationalID := r.FormValue("national_id")
 
 		if nationalID == "" {
-			BadRequestHandler(w, r)
+			renders.RenderTemplate(w, "verify.page.html", nil)
 			return
 		}
 
