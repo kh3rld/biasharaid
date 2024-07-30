@@ -35,7 +35,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		// Render the upload form
-		renders.RenderTemplate(w, "upload.page.html", nil)
+		renders.RenderTemplate(w, "test.page.html", nil)
 
 	case "POST":
 		// Parse the form to retrieve file
