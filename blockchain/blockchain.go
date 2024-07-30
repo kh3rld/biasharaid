@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -49,7 +50,8 @@ func (b *Block) CreateBlock(prevBlock *Block, person Entrepreneur) *Block {
 		PrevHash:  prevBlock.Hash,
 	}
 
-	block.Hash = block.GenerateHash()
+	// Set difficulty (for example, 4 leading zeros)
+	block.MineBlock(4)
 
 	return block
 }
@@ -66,6 +68,20 @@ func (b *Block) GenerateHash() string {
 // ValidateHash validates a given hash
 func (b *Block) ValidateHash(hash string) bool {
 	return b.GenerateHash() == hash
+}
+
+// MineBlock mines the block by adjusting the nonce until the hash starts with the specified number of zeros
+func (b *Block) MineBlock(difficulty int) {
+	b.Difficulty = difficulty
+	prefix := strings.Repeat("0", difficulty)
+	for {
+		hash := b.GenerateHash()
+		if strings.HasPrefix(hash, prefix) {
+			b.Hash = hash
+			break
+		}
+		b.Nonce++
+	}
 }
 
 // Blockchain defines the structure for the blockchain
