@@ -355,7 +355,9 @@ func Add(w http.ResponseWriter, r *http.Request) {
 
 		// Process the file if needed
 		// Example: Save the file to the server, check its type, etc.
-		analyzeImageWithOCRSpace(filePath)
+		if analyzeImageWithOCRSpace(filePath) == "Error analyzing image" {
+			renders.RenderTemplate(w, "signup.page.html", nil)
+		}
 
 		// Add the entrepreneur to the blockchain
 		if blockchain.BlockchainInstance == nil {
