@@ -328,10 +328,23 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		blockchain.BlockchainInstance.AddBlock(entrepreneur)
-		form := blockchain.BlockchainInstance.Blocks[len(blockchain.BlockchainInstance.Blocks)-1]
+		clientID := r.FormValue("national_id")
 
 		// Render the template
-		renders.RenderTemplate(w, "signup.page.html", form)
+		var block *blockchain.Block
+		for _, b := range blockchain.BlockchainInstance.Blocks {
+			if b.Data.NationalID == clientID {
+				block = b
+				break
+			}
+		}
+
+		if block == nil {
+			renders.RenderTemplate(w, "notverified.page.html", nil)
+			return
+		}
+
+		renders.RenderTemplate(w, "verify.page.html", block)
 
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
