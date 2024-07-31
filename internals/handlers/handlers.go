@@ -85,7 +85,10 @@ func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Call analyzeImage to process the temporary image
-		analyzeImageWithOCRSpace(tempFilePath)
+		errer := analyzeImageWithOCRSpace(tempFilePath)
+		if errer == "Error analyzing image" {
+			http.Error(w, "Your National ID cannot be verified", http.StatusBadRequest)
+		}
 
 		// Send a success response
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
@@ -100,14 +103,14 @@ func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func analyzeImageWithOCRSpace(imagePath string) {
+func analyzeImageWithOCRSpace(imagePath string) string {
 	apiKey := "K84026493788957"
 	url := "https://api.ocr.space/parse/image"
 
 	file, err := os.Open(imagePath)
 	if err != nil {
 		log.Printf("Failed to open file: %v", err)
-		return
+		return "Error analyzing image"
 	}
 	defer file.Close()
 
@@ -122,12 +125,12 @@ func analyzeImageWithOCRSpace(imagePath string) {
 	formFile, err := writer.CreateFormFile("file", fileName)
 	if err != nil {
 		log.Printf("Failed to create form file field: %v", err)
-		return
+		return "Error analyzing image"
 	}
 
 	if _, err := io.Copy(formFile, file); err != nil {
 		log.Printf("Failed to copy file content: %v", err)
-		return
+		return "Error analyzing image"
 	}
 
 	// Close the writer to finalize the multipart form data
@@ -136,7 +139,7 @@ func analyzeImageWithOCRSpace(imagePath string) {
 	req, err := http.NewRequest("POST", url, &requestBody)
 	if err != nil {
 		log.Printf("Failed to create request: %v", err)
-		return
+		return "Error analyzing image"
 	}
 
 	req.Header.Set("apikey", apiKey)
@@ -146,16 +149,16 @@ func analyzeImageWithOCRSpace(imagePath string) {
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Printf("Failed to send request: %v", err)
-		return
+		return "Error analyzing image"
 	}
 	defer resp.Body.Close()
 
 	responseBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Printf("Failed to read response body: %v", err)
-		return
+		return "Error analyzing image"
 	}
-	ProcessImageText(string(responseBody))
+	return ProcessImageText(string(responseBody))
 }
 
 func ProcessImageText(resp string) string {
