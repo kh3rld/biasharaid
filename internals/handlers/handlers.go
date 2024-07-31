@@ -1,54 +1,36 @@
 package handlers
 
 import (
-	"context"
+	"bytes"
 	"fmt"
 	"io"
 	"log"
+	"mime/multipart"
 	"net/http"
 	"os"
 	"path/filepath"
-	"time"
+	"strings"
 
-	vision "cloud.google.com/go/vision/apiv1"
 	"github.com/kh3rld/biasharaid/blockchain"
 	"github.com/kh3rld/biasharaid/internals/renders"
-	"google.golang.org/api/option"
 )
 
-// var data renders.FormData
-var currentYear = time.Now().Format("2006")
+var data renders.FormData
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Welcome to BiasharaID - Your Secure Blockchain Identity Verification",
-	}
-	renders.RenderTemplate(w, "home.page.html", &data)
+	renders.RenderTemplate(w, "home.page.html", nil)
 }
 
 func Verification(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Verify Your Identity - BiasharaID",
-	}
-	renders.RenderTemplate(w, "verify.page.html", &data)
+	renders.RenderTemplate(w, "verify.page.html", nil)
 }
 
 func Contact(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Contact Us - BiasharaID",
-	}
-	renders.RenderTemplate(w, "contact.page.html", &data)
+	renders.RenderTemplate(w, "contact.page.html", nil)
 }
 
 func About(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "About Us - BiasharaID",
-	}
-	renders.RenderTemplate(w, "about.page.html", &data)
+	renders.RenderTemplate(w, "about.page.html", nil)
 }
 
 func Help(w http.ResponseWriter, r *http.Request) {
@@ -102,7 +84,7 @@ func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Call analyzeImage to process the temporary image
-		analyzeImage(tempFilePath)
+		analyzeImageWithOCRSpace(tempFilePath)
 
 		// Send a success response
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
@@ -117,14 +99,9 @@ func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func analyzeImage(imagePath string) {
-	ctx := context.Background()
-	client, err := vision.NewImageAnnotatorClient(ctx, option.WithCredentialsFile("path/to/your-service-account-key.json"))
-	if err != nil {
-		log.Printf("Failed to create client: %v", err)
-		return
-	}
-	defer client.Close()
+func analyzeImageWithOCRSpace(imagePath string) {
+	apiKey := "K84026493788957"
+	url := "https://api.ocr.space/parse/image"
 
 	file, err := os.Open(imagePath)
 	if err != nil {
@@ -133,22 +110,60 @@ func analyzeImage(imagePath string) {
 	}
 	defer file.Close()
 
-	image, err := vision.NewImageFromReader(file)
+	fileInfo, _ := file.Stat()
+	fileName := fileInfo.Name()
+
+	// Create a new buffer to hold the multipart form data
+	var requestBody bytes.Buffer
+	writer := multipart.NewWriter(&requestBody)
+
+	// Create a form file field and copy the file content to it
+	formFile, err := writer.CreateFormFile("file", fileName)
 	if err != nil {
-		log.Printf("Failed to create image: %v", err)
+		log.Printf("Failed to create form file field: %v", err)
 		return
 	}
 
-	response, err := client.DetectLabels(ctx, image, nil, 10)
-	if err != nil {
-		log.Printf("Failed to detect labels: %v", err)
+	if _, err := io.Copy(formFile, file); err != nil {
+		log.Printf("Failed to copy file content: %v", err)
 		return
 	}
 
-	fmt.Println("Labels:")
-	for _, label := range response {
-		fmt.Printf("%s (confidence: %f)\n", label.Description, label.Score)
+	// Close the writer to finalize the multipart form data
+	writer.Close()
+
+	req, err := http.NewRequest("POST", url, &requestBody)
+	if err != nil {
+		log.Printf("Failed to create request: %v", err)
+		return
 	}
+
+	req.Header.Set("apikey", apiKey)
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Printf("Failed to send request: %v", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	responseBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Printf("Failed to read response body: %v", err)
+		return
+	}
+	ProcessImageText(string(responseBody))
+}
+
+func ProcessImageText(resp string) string {
+	var res string
+
+	for _, field := range strings.Split(resp, "\\r\\n") {
+		fmt.Println(field)
+	}
+	return res
 }
 
 // UploadHandler handles file upload requests
@@ -156,11 +171,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		// Render the upload form
-		data := renders.FormData{
-			CurrentYear: currentYear,
-			Title:       "Upload Form  - BiasharaID",
-		}
-		renders.RenderTemplate(w, "test.page.html", &data)
+		renders.RenderTemplate(w, "test.page.html", nil)
 
 	case "POST":
 		// Parse the form to retrieve file
@@ -187,7 +198,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create a file in the upload directory with a .jpeg extension
-		filePath := filepath.Join(uploadDir, "uploaded_certificate.jpeg")
+		filePath := filepath.Join(uploadDir, "uploaded_nationalID.jpg")
 		outFile, err := os.Create(filePath)
 		if err != nil {
 			http.Error(w, "Failed to create file", http.StatusInternalServerError)
@@ -203,12 +214,12 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Call analyzeImage to process the uploaded image
-		analyzeImage(filePath)
+		analyzeImageWithOCRSpace(filePath)
 
 		// Send a success response
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		w.WriteHeader(http.StatusOK)
-		_, err = w.Write([]byte("File uploaded and saved as .jpeg successfully"))
+		_, err = w.Write([]byte("File uploaded and saved as uploaded_nationalID.jpeg successfully"))
 		if err != nil {
 			http.Error(w, "Failed to write response", http.StatusInternalServerError)
 		}
@@ -221,11 +232,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		data := renders.FormData{
-			CurrentYear: currentYear,
-			Title:       "Verify - BiasharaID",
-		}
-		renders.RenderTemplate(w, "verify.page.html", &data)
+		renders.RenderTemplate(w, "verify.page.html", nil)
 		return
 	case "POST":
 		if err := r.ParseForm(); err != nil {
@@ -236,11 +243,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 		nationalID := r.FormValue("national_id")
 
 		if nationalID == "" {
-			data := renders.FormData{
-				CurrentYear: currentYear,
-				Title:       "Verify - BiasharaID",
-			}
-			renders.RenderTemplate(w, "verify.page.html", &data)
+			renders.RenderTemplate(w, "verify.page.html", nil)
 			return
 		}
 
@@ -253,11 +256,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if block == nil {
-			data := renders.FormData{
-				CurrentYear: currentYear,
-				Title:       "Page Not Found - BiasharaID",
-			}
-			renders.RenderTemplate(w, "404.page.html", &data)
+			renders.RenderTemplate(w, "notverified.page.html", nil)
 			return
 		}
 
@@ -270,14 +269,13 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 func Add(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		data := renders.FormData{
-			CurrentYear: currentYear,
-		}
-		renders.RenderTemplate(w, "signup.page.html", &data)
+		renders.RenderTemplate(w, "signup.page.html", nil)
 		return
 	case "POST":
 		var entrepreneur blockchain.Entrepreneur
-		if err := r.ParseForm(); err != nil {
+
+		// Parse the form data, including files
+		if err := r.ParseMultipartForm(10 << 20); err != nil { // 10MB limit for files
 			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
 			return
 		}
@@ -286,76 +284,76 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		second_name := r.FormValue("secondName")
 		location := r.FormValue("location")
 		phone := r.FormValue("phone")
-		national_id := r.FormValue("national_id")
-		business_id := r.FormValue("business_id")
+		nationalID := r.FormValue("national_id")
+		businessID := r.FormValue("business_id")
 		status := r.FormValue("status")
-		business_value := r.FormValue("businessValue")
-		name := r.FormValue("businessName")
-		address := r.FormValue("businessaddress")
+		businessValueStr := r.FormValue("businessValue")
+		businessName := r.FormValue("businessName")
+		businessAddress := r.FormValue("businessaddress")
 
+		// Convert business value from string to appropriate type
+
+		// Create a Business struct
 		business := blockchain.Business{
-			BusinessID:    business_id,
+			BusinessID:    businessID,
 			Status:        status,
-			BusinessValue: business_value,
-			Name:          name,
-			Address:       address,
+			BusinessValue: businessValueStr,
+			Name:          businessName,
+			Address:       businessAddress,
 		}
 
-		// Create an instance of Entrepreneur
+		// Create an Entrepreneur struct
 		entrepreneur = blockchain.Entrepreneur{
 			FirstName:  first_name,
 			SecondName: second_name,
 			Location:   location,
 			Business:   business,
 			Phone:      phone,
-			NationalID: national_id,
+			NationalID: nationalID,
 			IsGenesis:  false,
 		}
 
-		blockchain.BlockchainInstance.AddBlock(entrepreneur)
-		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
-
-		data := renders.FormData{
-			CurrentYear: currentYear,
-			Title:       "SignUp - BiasharaID",
+		// Handle file upload
+		file, _, err := r.FormFile("certificate")
+		if err != nil {
+			http.Error(w, "Failed to retrieve file", http.StatusInternalServerError)
+			return
 		}
-		renders.RenderTemplate(w, "signup.page.html", &data)
+		defer file.Close()
+
+		// Process the file if needed
+		// Example: Save the file to the server, check its type, etc.
+
+		// Add the entrepreneur to the blockchain
+		if blockchain.BlockchainInstance == nil {
+			http.Error(w, "Blockchain instance not initialized", http.StatusInternalServerError)
+			return
+		}
+		blockchain.BlockchainInstance.AddBlock(entrepreneur)
+
+		// Render the template
+		renders.RenderTemplate(w, "signup.page.html", nil)
+
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 }
 
 func Addpage(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "SignUp - BiasharaID",
-	}
+
 	renders.RenderTemplate(w, "signup.page.html", data)
 }
-
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Not Found - BiasharaID",
-	}
-	renders.RenderTemplate(w, "404.page.html", &data)
+	renders.RenderTemplate(w, "404.page.html", nil)
 }
 
 func BadRequestHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusBadRequest)
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Not Found - BiasharaID",
-	}
-	renders.RenderTemplate(w, "400.page.html", data)
+	renders.RenderTemplate(w, "400.page.html", nil)
 }
 
 func ServerErrorHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusInternalServerError)
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "Internal Server Error - BiasharaID",
-	}
-	renders.RenderTemplate(w, "500.page.html", &data)
+	renders.RenderTemplate(w, "500.page.html", nil)
 }
