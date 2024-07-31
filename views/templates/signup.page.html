@@ -17,8 +17,9 @@
 				<label for="firstName">First Name:</label>
 				<input
 					type="text"
-					id="firstName"
+					id="firstname"
 					name="firstname"
+                    maxlength="50"
 					required
 				/>
 				<div
@@ -31,8 +32,9 @@
 				<label for="secondName">Second Name:</label>
 				<input
 					type="text"
-					id="secondName"
+					id="secondname"
 					name="secondname"
+                    maxlength="50"
 					required
 				/>
 				<div
@@ -47,6 +49,7 @@
 					type="text"
 					id="location"
 					name="location"
+                    maxlength="50"
 					required
 				/>
 				<div
@@ -61,7 +64,8 @@
 					type="number"
 					id="phone"
 					name="phone"
-                    maxlength="10"
+                    maxlength="12"
+                    placeholder="254123456789"
 					required
 				/>
 				<div
@@ -94,6 +98,7 @@
 					type="text"
 					id="business_id"
 					name="business_id"
+                    maxlength="50"
 					required
 				/>
 				<div
@@ -118,7 +123,7 @@
 			<div>
 				<label for="businessValue">Business Value:</label>
 				<input
-					type="text"
+					type="number"
 					id="businessValue"
 					name="businessValue"
 					required
@@ -136,6 +141,7 @@
 					type="text"
 					id="businessName"
 					name="businessName"
+                    maxlength="50"
 					required
 				/>
 				<div
@@ -150,6 +156,7 @@
 					type="text"
 					id="businessaddress"
 					name="businessaddress"
+                    maxlength="50"
 					required
 				/>
 				<div
@@ -159,11 +166,11 @@
 			</div>
 
 			<div>
-				<label for="certificate">Choose Certificate:</label>
+				<label for="certificate">Upload National ID:</label>
 				<input
 					type="file"
-					id="certificate"
-					name="certificate"
+					id="national_id"
+					name="national_id"
 					accept=".pdf,.png,.jpg,.jpeg"
 				/>
 			</div>
