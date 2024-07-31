@@ -9,13 +9,16 @@ Open a terminal and navigate to the directory containing the Go application.
 ```sh
    cd  biasharaid
    ```
-
-2. **Navigate to `web` directory**
+2. Initialized go.mod on the root of the project using the below command
+``` go 
+go mod init github.com/kh3rld/biasharaid
+ ```
+3. **Navigate to `web` directory**
     ```sh
     cd web
     ```
 
-3. **Run the Application**
+4. **Run the Application**
 ```sh
 go run main.go
 ```
