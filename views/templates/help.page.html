@@ -1,0 +1,143 @@
+{{template "base" .}}{{define "content"}}
+<link rel="stylesheet" href="../static/help.css" />
+<div class="container">
+  <section class="intro fade-in">
+    <h1>How Can We Help You?</h1>
+    <p>Explore our resources to get the most out of BiasharaID.</p>
+  </section>
+
+  <section class="search-bar fade-in">
+    <input type="text" placeholder="Search for help topics..." />
+  </section>
+
+  <section class="categories fade-in">
+    <div class="category">
+      <i class="fas fa-rocket"></i>
+      <h3>Getting Started</h3>
+      <p>New to BiasharaID? Start here!</p>
+    </div>
+    <div class="category">
+      <i class="fas fa-id-card"></i>
+      <h3>Identity Verification</h3>
+      <p>Learn about our secure verification process</p>
+    </div>
+    <div class="category">
+      <i class="fas fa-user-cog"></i>
+      <h3>Account Management</h3>
+      <p>Manage your BiasharaID account</p>
+    </div>
+    <div class="category">
+      <i class="fas fa-shield-alt"></i>
+      <h3>Security & Privacy</h3>
+      <p>Understand how we protect your data</p>
+    </div>
+    <div class="category">
+      <i class="fas fa-money-check-alt"></i>
+      <h3>Financial Services</h3>
+      <p>Explore our financial offerings</p>
+    </div>
+  </section>
+
+  <section class="faqs fade-in">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-question">What is BiasharaID?</div>
+      <div class="faq-answer">
+        <p>
+          BiasharaID is a blockchain-based identity verification platform that
+          provides secure and efficient digital identity solutions for
+          businesses and individuals.
+        </p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        How does the identity verification process work?
+      </div>
+      <div class="faq-answer">
+        <p>
+          Our identity verification process involves uploading your
+          identification documents and capturing biometric data. This
+          information is then securely stored and verified using blockchain
+          technology.
+        </p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Is my data secure with BiasharaID?</div>
+      <div class="faq-answer">
+        <p>
+          Yes, we use advanced blockchain technology and encryption methods to
+          ensure the highest level of security for your personal and business
+          data.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tutorials fade-in">
+    <h2>Video Tutorials</h2>
+    <div class="tutorial">
+      <img
+        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.rmceNk7W5Xn6DMX7M7craQHaEK%26pid%3DApi&f=1&ipt=77be3f8b7578edfe6cd3737ba781a8302f8a81c1cb398cd13613e73852a05bff&ipo=images"
+        alt="How to Sign Up tutorial thumbnail"
+      />
+    </div>
+    <div class="tutorial">
+      <img
+        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.teiYM7_ixRqap7zdcv3ULgHaE8%26pid%3DApi&f=1&ipt=ed585cd1ae984da0fa283a9f1cdbd4400aec5665af60a6fcab7b7866904a3396&ipo=images"
+        alt="Completing Identity Verification tutorial thumbnail"
+      />
+    </div>
+    <div class="tutorial">
+      <img
+        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.AUp3XPVdfhxy7KfQ3nziyAHaEy%26pid%3DApi&f=1&ipt=5a53e937ec942b3fdb95d006a6555280895bd730753f482c2a06e296507917a2&ipo=images"
+        alt="Using Your Digital Identity tutorial thumbnail"
+      />
+    </div>
+    <div class="tutorial">
+      <img
+        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.2LFgNmjlWs0LUHefizlEHwHaEi%26pid%3DApi&f=1&ipt=df1d26ea78cb6dc5e7948a737a19fd8536ebc3fac5ea48b71f6c265c6122378f&ipo=images"
+        alt="Accessing Financial Services tutorial thumbnail"
+      />
+    </div>
+  </section>
+
+  <section class="contact-support fade-in">
+    <h2>Need More Help?</h2>
+    <p>Reach out to our support team for further assistance.</p>
+    <a href="/contact-support" class="contact-btn">Contact Support</a>
+  </section>
+</div>
+
+<script
+  src="https://kit.fontawesome.com/your-fontawesome-kit.js"
+  crossorigin="anonymous"
+></script>
+<script>
+  document.addEventListener("DOMContentLoaded", (event) => {
+    const faqItems = document.querySelectorAll(".faq-item");
+
+    faqItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        item.classList.toggle("active");
+      });
+    });
+
+    const searchInput = document.querySelector(".search-bar input");
+    searchInput.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        alert("Search functionality to be implemented");
+      }
+    });
+
+    const tutorials = document.querySelectorAll(".tutorial");
+    tutorials.forEach((tutorial) => {
+      tutorial.addEventListener("click", () => {
+        alert("Video tutorial to be implemented");
+      });
+    });
+  });
+</script>
+
+{{end}}
