@@ -376,9 +376,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		blockchain.BlockchainInstance.AddBlock(entrepreneur)
-		clientID := analyzeImageWithOCRSpace(filePath)
-		fmt.Println("THE ID IS HERE: ", clientID)
-		clientID = r.FormValue("national_id")
+		clientID := r.FormValue("national_id")
 
 		// Render the template
 		var block *blockchain.Block
@@ -387,6 +385,12 @@ func Add(w http.ResponseWriter, r *http.Request) {
 				block = b
 				break
 			}
+		}
+
+		clientID = analyzeImageWithOCRSpace(filePath)
+		if clientID != "" {
+			fmt.Println("THE ID IS HERE: ", clientID)
+			block.Data.NationalID = clientID
 		}
 
 		if block == nil {
