@@ -166,10 +166,21 @@ func analyzeImageWithOCRSpace(imagePath string) string {
 func ProcessImageText(resp string) string {
 	var res string
 
-	for _, field := range strings.Split(resp, "\\r\\n") {
-		fmt.Println(field)
+	for i, field := range strings.Split(resp, "\\r\\n") {
+		if i == 2 && hasDigit(field) {
+			return field[i:]
+		}
 	}
 	return res
+}
+
+func hasDigit(s string) bool {
+	for _, char := range s {
+		if char >= '0' && char <= '9' {
+			return true
+		}
+	}
+	return false
 }
 
 // UploadHandler handles file upload requests
@@ -365,7 +376,9 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		blockchain.BlockchainInstance.AddBlock(entrepreneur)
-		clientID := r.FormValue("national_id")
+		clientID := analyzeImageWithOCRSpace(filePath)
+		fmt.Println("THE ID IS HERE: ", clientID)
+		clientID = r.FormValue("national_id")
 
 		// Render the template
 		var block *blockchain.Block

@@ -1,37 +1,95 @@
-{{template "base"}}
-{{define "content"}}
-<link rel="stylesheet" href="../static/400.css">
-    <div class="container">
-        <div class="main-content">
-            <h1>Not VeriFied</h1>
-            <p>We're sorry, but we couldn't find your the record you searched for.</p>
+{{template "base"}} {{define "content"}}
+<link
+	rel="stylesheet"
+	href="../static/400.css"
+/>
+<div class="container">
+	<div class="main-content">
+		<h1>Not VeriFied</h1>
+		<p>We're sorry, but we couldn't find the record you're looking for.</p>
 
-            <svg class="bad-request-graphic" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="45" fill="#f0f8ff" stroke="#ff6600" stroke-width="2" />
-                <text x="50" y="65" font-size="60" text-anchor="middle" fill="#ff6600">!</text>
-                <path d="M30,30 L70,70" stroke="#ff6600" stroke-width="2" />
-                <path d="M30,70 L70,30" stroke="#ff6600" stroke-width="2" />
-            </svg>
+		<svg
+			class="bad-request-graphic"
+			viewBox="0 0 100 100"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<circle
+				cx="50"
+				cy="50"
+				r="45"
+				fill="#f0f8ff"
+				stroke="#ff6600"
+				stroke-width="2"
+			/>
+			<text
+				x="50"
+				y="65"
+				font-size="60"
+				text-anchor="middle"
+				fill="#ff6600"
+			>
+				!
+			</text>
+			<path
+				d="M30,30 L70,70"
+				stroke="#ff6600"
+				stroke-width="2"
+			/>
+			<path
+				d="M30,70 L70,30"
+				stroke="#ff6600"
+				stroke-width="2"
+			/>
+		</svg>
 
-            <p>Here are some things you can try:</p>
+		<p>Here are some things you can try:</p>
 
-            <div class="navigation-options">
-                <a href="javascript:history.back()" class="btn">Go Back</a>
-                <a href="/" class="btn">Home</a>
-                <a href="/contact" class="btn">Support</a>
-            </div>
+		<div class="navigation-options">
+			<a
+				href="javascript:history.back()"
+				class="btn"
+				>Go Back</a
+			>
+			<a
+				href="/"
+				class="btn"
+				>Home</a
+			>
+			<a
+				href="/contact"
+				class="btn"
+				>Support</a
+			>
+		</div>
 
-            <h2>Still having issues?</h2>
-            <p>If you believe this is a mistake or need further assistance, please contact our support team:</p>
+		<h2>Still having issues?</h2>
+		<p>
+			If you believe this is a mistake or need further assistance, please
+			contact our support team:
+		</p>
 
-            <div class="contact-form">
-                <form id="support-form">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" placeholder="Describe the issue you're experiencing" required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </div>
+		<div class="contact-form">
+			<form id="support-form">
+				<input
+					type="text"
+					name="name"
+					placeholder="Your Name"
+					required
+				/>
+				<input
+					type="email"
+					name="email"
+					placeholder="Your Email"
+					required
+				/>
+				<textarea
+					name="message"
+					placeholder="Describe the issue you're experiencing"
+					required
+				></textarea>
+				<button type="submit">Send Message</button>
+			</form>
+		</div>
+	</div>
+</div>
 {{end}}
