@@ -87,6 +87,7 @@ func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
 		// Call analyzeImage to process the temporary image
 		errer := analyzeImageWithOCRSpace(tempFilePath)
 		if errer == "Error analyzing image" {
+			fmt.Println("Image analysis failed. Please try again.")
 			http.Error(w, "Your National ID cannot be verified", http.StatusBadRequest)
 		}
 
@@ -104,6 +105,7 @@ func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func analyzeImageWithOCRSpace(imagePath string) string {
+	fmt.Println("heeeey")
 	apiKey := "K84026493788957"
 	url := "https://api.ocr.space/parse/image"
 
@@ -272,6 +274,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		renders.RenderTemplate(w, "signup.page.html", nil)
 		return
 	case "POST":
+		fmt.Println("It is here!!!")
 		var entrepreneur blockchain.Entrepreneur
 
 		// Parse the form data, including files
@@ -279,7 +282,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
 			return
 		}
-		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
+
 		first_name := r.FormValue("firstName")
 		second_name := r.FormValue("secondName")
 		location := r.FormValue("location")
@@ -313,17 +316,46 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			IsGenesis:  false,
 		}
 
-		// Handle file upload
+		// Retrieve the file from the form
 		file, _, err := r.FormFile("nationalID")
 		if err != nil {
-			http.Error(w, "Failed to retrieve file", http.StatusInternalServerError)
+			fmt.Printf("Error retrieving file: %v", err)
+			log.Printf("Error retrieving file: %v", err) // Log the specific error
+			http.Error(w, "Failed to read file", http.StatusInternalServerError)
 			return
 		}
 		defer file.Close()
 
+		// Define the upload directory
+		uploadDir := "./static/uploads"
+		err = os.MkdirAll(uploadDir, os.ModePerm) // Create directory if it doesn't exist
+		if err != nil {
+			http.Error(w, "Failed to create directory", http.StatusInternalServerError)
+			return
+		}
+
+		// Generate a unique file name to avoid overwriting
+		fileName := fmt.Sprintf("uploaded_%d.jpg", time.Now().UnixNano())
+		filePath := filepath.Join(uploadDir, fileName)
+
+		// Create a file in the upload directory
+		outFile, err := os.Create(filePath)
+		if err != nil {
+			http.Error(w, "Failed to create file", http.StatusInternalServerError)
+			return
+		}
+		defer outFile.Close()
+
+		// Copy the uploaded file content to the new file
+		_, err = io.Copy(outFile, file)
+		if err != nil {
+			http.Error(w, "Failed to save file", http.StatusInternalServerError)
+			return
+		}
+
 		// Process the file if needed
 		// Example: Save the file to the server, check its type, etc.
-		uploader(w, r)
+		analyzeImageWithOCRSpace(filePath)
 
 		// Add the entrepreneur to the blockchain
 		if blockchain.BlockchainInstance == nil {
