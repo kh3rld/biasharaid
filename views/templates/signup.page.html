@@ -19,7 +19,7 @@
 					type="text"
 					id="firstname"
 					name="firstname"
-                    maxlength="50"
+					maxlength="50"
 					required
 				/>
 				<div
@@ -34,7 +34,7 @@
 					type="text"
 					id="secondname"
 					name="secondname"
-                    maxlength="50"
+					maxlength="50"
 					required
 				/>
 				<div
@@ -49,7 +49,7 @@
 					type="text"
 					id="location"
 					name="location"
-                    maxlength="50"
+					maxlength="50"
 					required
 				/>
 				<div
@@ -64,8 +64,8 @@
 					type="number"
 					id="phone"
 					name="phone"
-                    maxlength="12"
-                    placeholder="254123456789"
+					maxlength="12"
+					placeholder="254123456789"
 					required
 				/>
 				<div
@@ -80,8 +80,8 @@
 					type="number"
 					id="national_id"
 					name="national_id"
-                    minlength="8"
-                    maxlength="8"
+					minlength="8"
+					maxlength="8"
 					required
 				/>
 				<div
@@ -98,7 +98,7 @@
 					type="text"
 					id="business_id"
 					name="business_id"
-                    maxlength="50"
+					maxlength="50"
 					required
 				/>
 				<div
@@ -134,14 +134,13 @@
 				></div>
 			</div>
 
-
 			<div>
 				<label for="businessName">Business Name:</label>
 				<input
 					type="text"
 					id="businessName"
 					name="businessName"
-                    maxlength="50"
+					maxlength="50"
 					required
 				/>
 				<div
@@ -156,7 +155,7 @@
 					type="text"
 					id="businessaddress"
 					name="businessaddress"
-                    maxlength="50"
+					maxlength="50"
 					required
 				/>
 				<div
@@ -166,11 +165,11 @@
 			</div>
 
 			<div>
-				<label for="certificate">Upload National ID:</label>
+				<label for="nationalID">Upload National ID:</label>
 				<input
 					type="file"
-					id="national_id"
-					name="national_id"
+					id="nationalID"
+					name="nationalID"
 					accept=".pdf,.png,.jpg,.jpeg"
 				/>
 			</div>
@@ -183,7 +182,7 @@
 			</button>
 		</form>
 
-        <div id="loading"></div>
+		<div id="loading"></div>
 
 		<div class="tips">
 			<h3>Tips for Accurate Submission:</h3>
@@ -203,19 +202,18 @@
 			</ul>
 		</div>
 
-        <div id="confirmationMessage">
-            Your business information has been successfully submitted for verification.
-        </div>
-    </section>
-
+		<div id="confirmationMessage">
+			Your business information has been successfully submitted for
+			verification.
+		</div>
+	</section>
 </div>
-{{end}}
-{{define "script"}}
-    <script>
-        document.getElementById('uploadForm').addEventListener('submit', function() {
-            // Show the loading icon when the form is submitted
-            document.getElementById('loading').style.display = 'block';
-        });
-    </script>
+{{end}} {{define "script"}}
+<script>
+	document.getElementById("uploadForm").addEventListener("submit", function () {
+		// Show the loading icon when the form is submitted
+		document.getElementById("loading").style.display = "block";
+	});
+</script>
 
 {{end}}

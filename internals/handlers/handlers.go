@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/kh3rld/biasharaid/blockchain"
 	"github.com/kh3rld/biasharaid/internals/renders"
@@ -167,65 +168,61 @@ func ProcessImageText(resp string) string {
 }
 
 // UploadHandler handles file upload requests
-func UploadHandler(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case "GET":
-		// Render the upload form
-		renders.RenderTemplate(w, "test.page.html", nil)
+func uploader(w http.ResponseWriter, r *http.Request) {
+	// Parse the form to retrieve file
+	err := r.ParseMultipartForm(10 << 20) // 10 MB limit
+	if err != nil {
+		http.Error(w, "Failed to parse form", http.StatusInternalServerError)
+		return
+	}
 
-	case "POST":
-		// Parse the form to retrieve file
-		err := r.ParseMultipartForm(10 << 20) // 10 MB limit
-		if err != nil {
-			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
-			return
-		}
+	// Retrieve the file from the form
+	file, _, err := r.FormFile("nationalID")
+	if err != nil {
+		fmt.Printf("Error retrieving file: %v", err)
+		log.Printf("Error retrieving file: %v", err) // Log the specific error
+		http.Error(w, "Failed to read file", http.StatusInternalServerError)
+		return
+	}
 
-		// Retrieve the file from the form
-		file, _, err := r.FormFile("certificate")
-		if err != nil {
-			http.Error(w, "Failed to retrieve file", http.StatusInternalServerError)
-			return
-		}
-		defer file.Close()
+	defer file.Close()
 
-		// Define the upload directory and file path with .jpeg extension
-		uploadDir := "./static/uploads"
-		err = os.MkdirAll(uploadDir, os.ModePerm) // Create directory if it doesn't exist
-		if err != nil {
-			http.Error(w, "Failed to create directory", http.StatusInternalServerError)
-			return
-		}
+	// Define the upload directory
+	uploadDir := "./static/uploads"
+	err = os.MkdirAll(uploadDir, os.ModePerm) // Create directory if it doesn't exist
+	if err != nil {
+		http.Error(w, "Failed to create directory", http.StatusInternalServerError)
+		return
+	}
 
-		// Create a file in the upload directory with a .jpeg extension
-		filePath := filepath.Join(uploadDir, "uploaded_nationalID.jpg")
-		outFile, err := os.Create(filePath)
-		if err != nil {
-			http.Error(w, "Failed to create file", http.StatusInternalServerError)
-			return
-		}
-		defer outFile.Close()
+	// Generate a unique file name to avoid overwriting
+	fileName := fmt.Sprintf("uploaded_%d.jpg", time.Now().UnixNano())
+	filePath := filepath.Join(uploadDir, fileName)
 
-		// Copy the uploaded file content to the new file
-		_, err = io.Copy(outFile, file)
-		if err != nil {
-			http.Error(w, "Failed to save file", http.StatusInternalServerError)
-			return
-		}
+	// Create a file in the upload directory
+	outFile, err := os.Create(filePath)
+	if err != nil {
+		http.Error(w, "Failed to create file", http.StatusInternalServerError)
+		return
+	}
+	defer outFile.Close()
 
-		// Call analyzeImage to process the uploaded image
-		analyzeImageWithOCRSpace(filePath)
+	// Copy the uploaded file content to the new file
+	_, err = io.Copy(outFile, file)
+	if err != nil {
+		http.Error(w, "Failed to save file", http.StatusInternalServerError)
+		return
+	}
 
-		// Send a success response
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		w.WriteHeader(http.StatusOK)
-		_, err = w.Write([]byte("File uploaded and saved as uploaded_nationalID.jpeg successfully"))
-		if err != nil {
-			http.Error(w, "Failed to write response", http.StatusInternalServerError)
-		}
+	// Call analyzeImage to process the uploaded image
+	analyzeImageWithOCRSpace(filePath)
 
-	default:
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	// Send a success response
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
+	_, err = w.Write([]byte(fmt.Sprintf("File uploaded and saved as %s successfully", fileName)))
+	if err != nil {
+		http.Error(w, "Failed to write response", http.StatusInternalServerError)
 	}
 }
 
@@ -314,7 +311,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Handle file upload
-		file, _, err := r.FormFile("certificate")
+		file, _, err := r.FormFile("nationalID")
 		if err != nil {
 			http.Error(w, "Failed to retrieve file", http.StatusInternalServerError)
 			return
@@ -323,6 +320,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 
 		// Process the file if needed
 		// Example: Save the file to the server, check its type, etc.
+		uploader(w, r)
 
 		// Add the entrepreneur to the blockchain
 		if blockchain.BlockchainInstance == nil {
