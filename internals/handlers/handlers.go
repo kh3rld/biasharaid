@@ -328,9 +328,10 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		blockchain.BlockchainInstance.AddBlock(entrepreneur)
+		form := blockchain.BlockchainInstance.Blocks[len(blockchain.BlockchainInstance.Blocks)-1]
 
 		// Render the template
-		renders.RenderTemplate(w, "signup.page.html", nil)
+		renders.RenderTemplate(w, "signup.page.html", form)
 
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
