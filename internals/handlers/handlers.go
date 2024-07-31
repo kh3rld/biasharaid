@@ -33,6 +33,14 @@ func About(w http.ResponseWriter, r *http.Request) {
 	renders.RenderTemplate(w, "about.page.html", nil)
 }
 
+func Help(w http.ResponseWriter, r *http.Request) {
+	data := renders.FormData{
+		CurrentYear: currentYear,
+		Title:       "About Us - BiasharaID",
+	}
+	renders.RenderTemplate(w, "help.page.html", &data)
+}
+
 func Details(w http.ResponseWriter, r *http.Request) {
 
 }
