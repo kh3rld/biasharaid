@@ -1,0 +1,77 @@
+{{template "base" .}} {{define "css"}}
+<link
+	rel="stylesheet"
+	href="../static/verify.css"
+/>
+{{end}} {{define "content"}}
+<div class="container">
+	<!-- {{if .}} -->
+	<!-- <div class="card"> -->
+		<!-- <div class="content"> -->
+			<pre><b>Name: </b> {{ .Data.FirstName}} {{ .Data.SecondName}}</pre>
+			<pre><b>Location: </b>: {{ .Data.Location}} </pre>
+			<pre><b>Phone: </b> {{ .Data.Phone}} </pre>
+			<pre><b>NationalID: </b> {{ .Data.NationalID}}</pre>
+			<pre><b>Business Details: </b></pre>
+			<ul>
+				<li><pre><b>Business ID: </b> {{ .Data.Business.BusinessID}} </pre></li>
+				<li><pre><b>Business Status: </b> {{ .Data.Business.Status}} </pre></li>
+				<li><pre><b>Business Value: </b>{{ .Data.Business.BusinessValue}} </pre></li>
+				<li><pre><b>Business Name: </b> {{ .Data.Business.Name}} </pre></li>
+				<li><pre><b>Business Address: </b> {{ .Data.Business.Address}} </pre></li>
+			</ul>
+		<!-- </div> -->
+	<!-- </div> -->
+	<!-- {{else}} -->
+	<section class="form-section">
+		<h1>Enter Your National ID</h1>
+
+		<form
+			id="businessIdForm"
+			method="POST"
+		>
+			<div>
+				<input
+					type="text"
+					id="national_id"
+					name="national_id"
+				/>
+				<div
+					class="error"
+					id="nationalIderror"
+				></div>
+			</div>
+			<button
+				type="submit"
+				class="submit-btn"
+			>
+				Submit Business Information
+			</button>
+		</form>
+
+		<div class="tips">
+			<h3>Tips for Accurate Submission:</h3>
+			<ul>
+				<li>
+					Ensure the identification number matches the one on your official
+					registration documents.
+				</li>
+				<li>
+					Double-check all entered information for accuracy before submission.
+				</li>
+				<!-- <li>
+							Upload clear, legible scans or photos of your business
+							registration certificate.
+						</li>
+						<li>Accepted file formats: PDF, JPG, PNG (Max file size: 5MB)</li> -->
+			</ul>
+		</div>
+
+		<div id="confirmationMessage">
+			Your business information has been successfully submitted for
+			verification.
+		</div>
+	</section>
+	<!-- {{end}} -->
+</div>
+{{end}}

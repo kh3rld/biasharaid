@@ -1,0 +1,73 @@
+{{define "base"}}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started with BiasharaID - Secure Blockchain Identity Verification</title>
+    <link rel="stylesheet" href="../static/index.css">
+    {{block "css" .}}{{end}}
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <svg class="blockchain-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 16V8L12 4L4 8V16L12 20L20 16Z" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M4 8L12 12L20 8" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 12V20" stroke="#0066cc" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span style="font-size: 24px; font-weight: bold; color: var(--primary-color);">BiasharaID</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/signup">Sign-Up</a></li>
+                    <li><a href="/verify">Verify</a></li>
+                    <!-- <li><a href="/dummy">Dummy</a></li> -->
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/help">Help</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    {{block "content" .}}{{end}}
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 BiasharaID. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://twitter.com/biasharaid" target="_blank" rel="noopener noreferrer">Twitter</a>
+                <a href="https://www.linkedin.com/company/biasharaid" target="_blank"
+                    rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://www.facebook.com/biasharaid" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+            <p><a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+        </div>
+    </footer>
+    {{block "script" .}}{{end}}
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                    }
+                });
+            });
+
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+
+{{end}}

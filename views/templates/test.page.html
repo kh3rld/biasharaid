@@ -1,0 +1,22 @@
+{{template "base"}} {{define "content"}}
+<link
+	rel="stylesheet"
+	href="../static/dummy.css"
+/>
+<h1>Upload Certificate</h1>
+<div class="container">
+	<form
+		method="POST"
+		enctype="multipart/form-data"
+	>
+		<label for="certificate">Choose Certificate:</label>
+		<input
+			type="file"
+			id="certificate"
+			name="certificate"
+			accept=".pdf,.png,.jpg,.jpeg"
+		/>
+		<button type="submit">Upload</button>
+	</form>
+</div>
+{{end}}

@@ -1,0 +1,30 @@
+{{template "base"}}
+{{define "content"}}
+<link rel="stylesheet" href="../static/404.css">
+    <div class="container">
+        <div class="main-content">
+            <h1>404 - Page Not Found</h1>
+            <p>Oops! It seems the page you're looking for has been lost in the blockchain.</p>
+
+            <svg class="broken-chain" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M30,50 L10,50 A20,20 0 0,1 10,30 L30,30" fill="none" stroke="#0066cc" stroke-width="5" />
+                <path d="M70,50 L90,50 A20,20 0 0,0 90,70 L70,70" fill="none" stroke="#0066cc" stroke-width="5" />
+                <path d="M40,40 L60,60" stroke="#ff4444" stroke-width="5" />
+                <path d="M60,40 L40,60" stroke="#ff4444" stroke-width="5" />
+            </svg>
+
+            <p>Don't worry! Let's get you back on track.</p>
+
+            <div class="navigation-options">
+                <a href="/" class="btn">Go to Home</a>
+                <!-- <a href="/dashboard" class="btn">My Dashboard</a>
+                <a href="/support" class="btn">Get Support</a> -->
+            </div>
+
+            <div class="search-bar">
+                <input type="text" placeholder="Search BiasharaID">
+                <button>Search</button>
+            </div>
+        </div>
+    </div>
+{{end}}

@@ -1,0 +1,36 @@
+{{template "base"}}
+{{define "content"}}
+<link rel="stylesheet" href="../static/500.css">
+    <div class="container">
+        <div class="main-content">
+            <h1>500 - Internal Server Error</h1>
+            <p>We apologize, but something went wrong on our end. Our team has been notified and is working hard to fix
+                it.</p>
+
+            <svg class="server-error-graphic" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="20" width="80" height="60" fill="#e6e6e6" stroke="#0066cc" stroke-width="2" />
+                <rect x="20" y="30" width="60" height="10" fill="#0066cc" />
+                <rect x="20" y="45" width="60" height="10" fill="#0066cc" />
+                <rect x="20" y="60" width="60" height="10" fill="#0066cc" />
+                <circle cx="85" cy="25" r="3" fill="#ff4444" />
+                <path d="M50,90 L60,100 M50,90 L40,100" stroke="#ff4444" stroke-width="3" />
+                <path d="M30,5 Q50,-5 70,5" stroke="#0066cc" stroke-width="2" fill="none" />
+                <path d="M35,5 L45,15 M65,5 L55,15" stroke="#0066cc" stroke-width="2" />
+            </svg>
+
+            <p>We appreciate your patience. Here's what you can do:</p>
+
+            <ul style="list-style-type: none; padding: 0;">
+                <li>• Refresh the page and try again</li>
+                <li>• Come back in a few minutes</li>
+                <li>• Contact our support team if the problem persists</li>
+            </ul>
+
+            <div class="navigation-options">
+                <a href="/" class="btn">Go to Home</a>
+                <a href="/dashboard" class="btn">Try Dashboard</a>
+                <a href="/support" class="btn">Contact Support</a>
+            </div>
+        </div>
+    </div>
+{{end}}
