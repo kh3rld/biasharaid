@@ -283,8 +283,8 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		first_name := r.FormValue("firstName")
-		second_name := r.FormValue("secondName")
+		first_name := r.FormValue("firstname")
+		second_name := r.FormValue("secondname")
 		location := r.FormValue("location")
 		phone := r.FormValue("phone")
 		nationalID := r.FormValue("national_id")
