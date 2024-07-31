@@ -1,0 +1,235 @@
+:root {
+    --primary-color: #0066cc;
+    --secondary-color: #00cc99;
+    --bg-color: #f0f8ff;
+    --text-color: #333;
+    --highlight-color: #ff9900;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    float: left;
+}
+
+header nav {
+    float: right;
+}
+
+header nav ul {
+    list-style-type: none;
+}
+
+header nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+header nav ul li a.active {
+    color: var(--highlight-color);
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+}
+
+.search-bar {
+    margin: 2rem 0;
+    position: relative;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 15px 50px 15px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.search-bar::after {
+    content: '🔍';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+
+.category {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.category:hover {
+    transform: translateY(-5px);
+}
+
+.category i {
+    font-size: 48px;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.faqs {
+    margin-bottom: 2rem;
+}
+
+.faq-item {
+    background: #fff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question::after {
+    content: '+';
+    font-size: 24px;
+}
+
+.faq-answer {
+    padding: 0 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-item.active .faq-question::after {
+    content: '-';
+}
+
+.faq-item.active .faq-answer {
+    max-height: 1000px;
+    padding: 15px;
+}
+
+.tutorials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+
+.tutorial {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.tutorial img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.tutorial::before {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: #fff;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.tutorial:hover::before {
+    opacity: 1;
+}
+
+.contact-support {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.contact-btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.contact-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.social-links a {
+    color: #fff;
+    margin: 0 10px;
+    font-size: 24px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--highlight-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
