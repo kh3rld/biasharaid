@@ -296,8 +296,8 @@ func Add(w http.ResponseWriter, r *http.Request) {
 
 		// Create an Entrepreneur struct
 		entrepreneur = blockchain.Entrepreneur{
-			FirstName:  firstName,
-			SecondName: secondName,
+			FirstName:  first_name,
+			SecondName: second_name,
 			Location:   location,
 			Business:   business,
 			Phone:      phone,
