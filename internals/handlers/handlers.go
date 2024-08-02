@@ -80,7 +80,11 @@ func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Call analyzeImage to process the temporary image
-		analyzeImageWithOCRSpace(tempFilePath)
+		errer := analyzeImageWithOCRSpace(tempFilePath)
+		if errer == "Error analyzing image" {
+			fmt.Println("Image analysis failed. Please try again.")
+			http.Error(w, "Your National ID cannot be verified", http.StatusBadRequest)
+		}
 
 		// Send a success response
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
@@ -95,14 +99,15 @@ func AnalyzeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func analyzeImageWithOCRSpace(imagePath string) {
+func analyzeImageWithOCRSpace(imagePath string) string {
+	fmt.Println("heeeey")
 	apiKey := "K84026493788957"
 	url := "https://api.ocr.space/parse/image"
 
 	file, err := os.Open(imagePath)
 	if err != nil {
 		log.Printf("Failed to open file: %v", err)
-		return
+		return "Error analyzing image"
 	}
 	defer file.Close()
 
@@ -117,12 +122,12 @@ func analyzeImageWithOCRSpace(imagePath string) {
 	formFile, err := writer.CreateFormFile("file", fileName)
 	if err != nil {
 		log.Printf("Failed to create form file field: %v", err)
-		return
+		return "Error analyzing image"
 	}
 
 	if _, err := io.Copy(formFile, file); err != nil {
 		log.Printf("Failed to copy file content: %v", err)
-		return
+		return "Error analyzing image"
 	}
 
 	// Close the writer to finalize the multipart form data
@@ -131,7 +136,7 @@ func analyzeImageWithOCRSpace(imagePath string) {
 	req, err := http.NewRequest("POST", url, &requestBody)
 	if err != nil {
 		log.Printf("Failed to create request: %v", err)
-		return
+		return "Error analyzing image"
 	}
 
 	req.Header.Set("apikey", apiKey)
@@ -141,25 +146,36 @@ func analyzeImageWithOCRSpace(imagePath string) {
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Printf("Failed to send request: %v", err)
-		return
+		return "Error analyzing image"
 	}
 	defer resp.Body.Close()
 
 	responseBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Printf("Failed to read response body: %v", err)
-		return
+		return "Error analyzing image"
 	}
-	ProcessImageText(string(responseBody))
+	return ProcessImageText(string(responseBody))
 }
 
 func ProcessImageText(resp string) string {
 	var res string
 
-	for _, field := range strings.Split(resp, "\\r\\n") {
-		fmt.Println(field)
+	for i, field := range strings.Split(resp, "\\r\\n") {
+		if i == 2 && hasDigit(field) {
+			return field[i:]
+		}
 	}
 	return res
+}
+
+func hasDigit(s string) bool {
+	for _, char := range s {
+		if char >= '0' && char <= '9' {
+			return true
+		}
+	}
+	return false
 }
 
 // UploadHandler handles file upload requests
@@ -264,6 +280,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		renders.RenderTemplate(w, "signup.page.html", nil)
 		return
 	case "POST":
+		fmt.Println("It is here!!!")
 		var entrepreneur blockchain.Entrepreneur
 
 		// Parse the form data, including files
@@ -271,9 +288,9 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Failed to parse form", http.StatusInternalServerError)
 			return
 		}
-		fmt.Println(len(blockchain.BlockchainInstance.Blocks))
-		first_name := r.FormValue("firstName")
-		second_name := r.FormValue("secondName")
+
+		first_name := r.FormValue("firstname")
+		second_name := r.FormValue("secondname")
 		location := r.FormValue("location")
 		phone := r.FormValue("phone")
 		nationalID := r.FormValue("national_id")
@@ -305,17 +322,48 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			IsGenesis:  false,
 		}
 
-		// Handle file upload
+		// Retrieve the file from the form
 		file, _, err := r.FormFile("nationalID")
 		if err != nil {
-			http.Error(w, "Failed to retrieve file", http.StatusInternalServerError)
+			fmt.Printf("Error retrieving file: %v", err)
+			log.Printf("Error retrieving file: %v", err) // Log the specific error
+			http.Error(w, "Failed to read file", http.StatusInternalServerError)
 			return
 		}
 		defer file.Close()
 
+		// Define the upload directory
+		uploadDir := "./static/uploads"
+		err = os.MkdirAll(uploadDir, os.ModePerm) // Create directory if it doesn't exist
+		if err != nil {
+			http.Error(w, "Failed to create directory", http.StatusInternalServerError)
+			return
+		}
+
+		// Generate a unique file name to avoid overwriting
+		fileName := fmt.Sprintf("uploaded_%d.jpg", time.Now().UnixNano())
+		filePath := filepath.Join(uploadDir, fileName)
+
+		// Create a file in the upload directory
+		outFile, err := os.Create(filePath)
+		if err != nil {
+			http.Error(w, "Failed to create file", http.StatusInternalServerError)
+			return
+		}
+		defer outFile.Close()
+
+		// Copy the uploaded file content to the new file
+		_, err = io.Copy(outFile, file)
+		if err != nil {
+			http.Error(w, "Failed to save file", http.StatusInternalServerError)
+			return
+		}
+
 		// Process the file if needed
 		// Example: Save the file to the server, check its type, etc.
-		uploader(w, r)
+		if analyzeImageWithOCRSpace(filePath) == "Error analyzing image" {
+			renders.RenderTemplate(w, "signup.page.html", nil)
+		}
 
 		// Add the entrepreneur to the blockchain
 		if blockchain.BlockchainInstance == nil {
@@ -332,6 +380,12 @@ func Add(w http.ResponseWriter, r *http.Request) {
 				block = b
 				break
 			}
+		}
+
+		clientID = analyzeImageWithOCRSpace(filePath)
+		if clientID != "" {
+			fmt.Println("THE ID IS HERE: ", clientID)
+			block.Data.NationalID = clientID
 		}
 
 		if block == nil {
