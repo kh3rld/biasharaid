@@ -6,3 +6,4 @@ go.sum
 *.log
 .air.toml
 *.jpeg
+*.jpg
