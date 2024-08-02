@@ -34,15 +34,10 @@ func About(w http.ResponseWriter, r *http.Request) {
 }
 
 func Help(w http.ResponseWriter, r *http.Request) {
-	data := renders.FormData{
-		CurrentYear: currentYear,
-		Title:       "About Us - BiasharaID",
-	}
 	renders.RenderTemplate(w, "help.page.html", &data)
 }
 
 func Details(w http.ResponseWriter, r *http.Request) {
-
 }
 
 func DummyHandler(w http.ResponseWriter, r *http.Request) {
@@ -340,9 +335,9 @@ func Add(w http.ResponseWriter, r *http.Request) {
 }
 
 func Addpage(w http.ResponseWriter, r *http.Request) {
-
 	renders.RenderTemplate(w, "signup.page.html", data)
 }
+
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 	renders.RenderTemplate(w, "404.page.html", nil)
